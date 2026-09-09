@@ -2,9 +2,19 @@ body{
     background-color: #FFF5E1;
 }
 
+header{
+    background-color: #EECE9B;
+    border-bottom: 5px solid #E7BB73;
+}
+
 .login{
     border: 1px solid black;
     background-color: #F9E9C9;
     border-radius: 5%;
     padding: 3%;
+}
+
+.visualizar{
+    background-color: white;
+    border: 1px solid black;
 }
