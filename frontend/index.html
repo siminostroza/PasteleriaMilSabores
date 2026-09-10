@@ -3,23 +3,246 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description" content="Pastelería 1000 Sabores: tortas cuadradas y circulares, postres individuales, opciones sin azúcar, sin gluten y veganas. 50 años de repostería chilena.">
+    <title>Pastelería 1000 Sabores — Tortas y postres artesanales</title>
 
-    <!-- CSS de Bootstrap corregido -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/logo/favicon.png" type="image/png">
+
+    <!-- Tipografías del caso: Lato para el texto, Pacifico para los títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo propias, externas y separadas por responsabilidad -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/componentes.css">
 </head>
-<body>
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="index.html">Inicio</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="productos.html">Productos</a>
-        </li>
-    </ul>
 
-    <!-- JS de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+        <div class="contenedor cabecera__interior">
+
+            <a class="marca" href="index.html">
+                <img class="marca__logo" src="img/logo/logo-mil-sabores.png"
+                     alt="Logotipo de Pastelería 1000 Sabores" width="46" height="46"
+                     data-reemplazo="ocultar">
+                <span class="marca__nombre">
+                    1000 Sabores
+                    <span class="marca__bajada">Pastelería desde 1975</span>
+                </span>
+            </a>
+
+            <button class="menu-boton" id="menu-boton" type="button"
+                    aria-expanded="false" aria-controls="navegacion-principal">
+                <span aria-hidden="true">☰</span>
+                <span class="solo-lectores">Abrir menú de navegación</span>
+            </button>
+
+            <nav class="navegacion" id="navegacion-principal" aria-label="Navegación principal">
+                <ul class="navegacion__lista">
+                    <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+                    <li><a class="navegacion__enlace" href="productos.html">Productos</a></li>
+                    <li><a class="navegacion__enlace" href="nosotros.html">Nosotros</a></li>
+                    <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+                    <li><a class="navegacion__enlace" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="cabecera__acciones">
+                <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+                <a class="carrito-enlace" href="carrito.html">
+                    <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+                    <span class="carrito-contador carrito-contador--vacio"
+                          id="carrito-contador" aria-hidden="true">0</span>
+                    <span class="solo-lectores" id="carrito-etiqueta">Carrito: 0 productos</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main id="contenido">
+
+        <!-- ==========================================================
+             COMPONENTE PRINCIPAL: información e imagen de la tienda
+             ========================================================== -->
+        <section class="hero" aria-labelledby="titulo-hero">
+            <div class="contenedor hero__interior">
+
+                <div class="hero__texto-bloque">
+                    <p class="etiqueta">Celebrando 50 años</p>
+                    <h1 class="hero__titulo" id="titulo-hero">
+                        Donde cada torta cuenta una historia
+                    </h1>
+                    <p class="hero__texto">
+                        Somos una pastelería chilena con medio siglo de oficio. En 1995
+                        participamos en el récord Guinness de la torta más grande del mundo,
+                        y hoy seguimos horneando con las mismas recetas de siempre, ahora
+                        también para tu casa.
+                    </p>
+                    <p class="hero__texto">
+                        Tortas cuadradas y circulares, postres individuales y alternativas
+                        sin azúcar, sin gluten y veganas. Todas personalizables con el
+                        mensaje que quieras.
+                    </p>
+
+                    <div class="hero__acciones">
+                        <a class="boton" href="productos.html">Ver el catálogo</a>
+                        <a class="boton boton--borde" href="nosotros.html">Conócenos</a>
+                    </div>
+                </div>
+
+                <figure class="hero__figura">
+                    <img class="hero__imagen" src="img/banner/vitrina-pasteleria.jpg"
+                         alt="Vitrina de la pastelería con tortas decoradas y postres del día"
+                         width="800" height="600" data-reemplazo>
+                    <figcaption class="hero__pie-figura">
+                        Nuestra vitrina en el local de Providencia
+                    </figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             LISTA DE PRODUCTOS: imagen, nombre y precio
+             Las tarjetas las dibuja js/inicio.js desde js/datos/productos.js
+             ========================================================== -->
+        <section class="seccion" aria-labelledby="titulo-destacados">
+            <div class="contenedor">
+
+                <div class="seccion__encabezado">
+                    <h2 id="titulo-destacados">Nuestros favoritos</h2>
+                    <p>
+                        Una selección de lo que más sale del horno. El catálogo completo
+                        tiene 16 productos repartidos en 8 categorías.
+                    </p>
+                </div>
+
+                <div class="grilla-productos" id="productos-destacados">
+                    <!-- Contenido generado por JavaScript -->
+                    <p class="estado-vacio">Cargando productos…</p>
+                </div>
+
+                <p class="texto-centrado margen-superior-lg">
+                    <a class="boton boton--rosa" href="productos.html">
+                        Ver los 16 productos
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+        <!-- ==========================================================
+             SELLOS DE CONFIANZA
+             ========================================================== -->
+        <section class="seccion seccion--tenue" aria-labelledby="titulo-sellos">
+            <div class="contenedor">
+
+                <div class="seccion__encabezado">
+                    <h2 id="titulo-sellos">Por qué comprarnos</h2>
+                </div>
+
+                <div class="grilla-sellos">
+
+                    <article class="sello">
+                        <p class="sello__icono" aria-hidden="true">🎂</p>
+                        <h3 class="sello__titulo">50 años de oficio</h3>
+                        <p class="sello__texto">
+                            Medio siglo horneando en Chile, con recetas que pasaron de
+                            generación en generación.
+                        </p>
+                    </article>
+
+                    <article class="sello">
+                        <p class="sello__icono" aria-hidden="true">🏆</p>
+                        <h3 class="sello__titulo">Récord Guinness 1995</h3>
+                        <p class="sello__texto">
+                            Participamos en la creación de la torta más grande del mundo,
+                            junto a pasteleros de todo el país.
+                        </p>
+                    </article>
+
+                    <article class="sello">
+                        <p class="sello__icono" aria-hidden="true">🎓</p>
+                        <h3 class="sello__titulo">Apoyo a estudiantes</h3>
+                        <p class="sello__texto">
+                            Trabajamos con estudiantes de gastronomía Duoc UC, y en su
+                            cumpleaños su torta va por nuestra cuenta.
+                        </p>
+                    </article>
+
+                    <article class="sello">
+                        <p class="sello__icono" aria-hidden="true">🚚</p>
+                        <h3 class="sello__titulo">Despacho con fecha</h3>
+                        <p class="sello__texto">
+                            Tú eliges el día de entrega y sigues tu pedido desde la
+                            preparación hasta la puerta de tu casa.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+        <div class="contenedor pie__interior">
+
+            <div>
+                <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+                <p>
+                    Tortas, postres y pastelería tradicional chilena desde 1975.
+                    Endulzando los momentos importantes de nuestros clientes.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Navegación</h3>
+                <ul class="pie__lista">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Contacto</h3>
+                <ul class="pie__lista">
+                    <li>Av. Providencia 1234, Santiago</li>
+                    <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+                    <li><a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a></li>
+                    <li>Lunes a sábado, 9:00 a 20:00</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <p class="pie__legal">
+            © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+        </p>
+    </footer>
+
+    <!-- Scripts al final del body: el HTML se muestra sin esperarlos.
+         El orden importa: los datos primero, después las utilidades y
+         al final la lógica de esta página. -->
+    <script src="js/datos/productos.js"></script>
+    <script src="js/formato.js"></script>
+    <script src="js/comunes.js"></script>
+    <script src="js/inicio.js"></script>
 </body>
 </html>

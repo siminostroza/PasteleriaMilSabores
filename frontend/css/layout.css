@@ -1,0 +1,300 @@
+/* 
+   Regla del archivo: aquí va todo lo que coloca cosas en la página
+   (dónde y con cuánto aire). Cómo se ve cada pieza por dentro está en
+   componentes.css.
+
+/* ---------------------------------------------------------------------
+   1. CONTENEDOR Y SECCIONES
+   --------------------------------------------------------------------- */
+
+/* El margen lateral se define UNA sola vez, aquí. Ninguna otra regla
+   vuelve a tocar el padding horizontal, así el contenido nunca queda
+   pegado al borde en pantallas angostas. */
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho-contenido);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.seccion {
+  padding-block: var(--espacio-xl);
+}
+
+.seccion--tenue {
+  background-color: var(--color-superficie-tenue);
+}
+
+.seccion__encabezado {
+  margin-bottom: var(--espacio-lg);
+  text-align: center;
+}
+
+.seccion__encabezado p {
+  max-width: 60ch;
+  margin-inline: auto;
+  color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   2. CABECERA Y NAVEGACIÓN
+   --------------------------------------------------------------------- */
+.cabecera {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-superficie-tenue);
+  border-bottom: 3px solid var(--color-borde);
+}
+
+.cabecera__interior {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-sm);
+  min-height: 76px;
+}
+
+/* Logo + nombre de la tienda */
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+  color: var(--color-chocolate);
+}
+
+.marca:hover {
+  text-decoration: none;
+}
+
+.marca__logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.marca__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  line-height: 1.1;
+}
+
+.marca__bajada {
+  display: block;
+  font-family: var(--fuente-texto);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+/* Navegación principal */
+.navegacion {
+  margin-left: auto;
+}
+
+.navegacion__lista {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  margin: 0;
+}
+
+.navegacion__enlace {
+  display: block;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.navegacion__enlace:hover {
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+  text-decoration: none;
+}
+
+/* La marca de página activa la pone comunes.js leyendo la URL */
+.navegacion__enlace--activo {
+  color: var(--color-chocolate);
+  box-shadow: inset 0 -3px 0 var(--color-chocolate);
+}
+
+/* Acciones de la derecha: sesión y carrito */
+.cabecera__acciones {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+  flex-shrink: 0;
+}
+
+.carrito-enlace {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  color: var(--color-texto);
+}
+
+.carrito-enlace:hover {
+  background-color: var(--color-rosa);
+  text-decoration: none;
+}
+
+.carrito-enlace__icono {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------------
+   3. MENÚ MÓVIL
+   El botón existe siempre en el HTML pero se oculta en escritorio: así el
+   marcado es uno solo y el comportamiento lo decide el ancho de pantalla.
+   --------------------------------------------------------------------- */
+.menu-boton {
+  display: none;
+  padding: 0.5rem 0.7rem;
+  border: 2px solid var(--color-chocolate);
+  border-radius: var(--radio-sm);
+  background-color: transparent;
+  color: var(--color-chocolate);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------
+   4. PIE DE PÁGINA
+   --------------------------------------------------------------------- */
+.pie {
+  margin-top: var(--espacio-xl);
+  background-color: var(--color-chocolate);
+  color: #f6e7d8;
+}
+
+.pie a {
+  color: #f6e7d8;
+}
+
+.pie a:hover {
+  color: var(--color-rosa);
+}
+
+.pie__interior {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: var(--espacio-lg);
+  padding-block: var(--espacio-lg);
+}
+
+.pie__titulo {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  color: var(--color-rosa);
+  margin-bottom: var(--espacio-xs);
+}
+
+.pie__lista li + li {
+  margin-top: 0.35rem;
+}
+
+.pie__legal {
+  padding-block: var(--espacio-sm);
+  border-top: 1px solid rgba(246, 231, 216, 0.25);
+  font-size: 0.85rem;
+  text-align: center;
+  color: rgba(246, 231, 216, 0.8);
+}
+
+/* ---------------------------------------------------------------------
+   5. GRILLAS
+   auto-fit + minmax deja que las tarjetas decidan cuántas caben por fila,
+   sin escribir un breakpoint por cada cantidad de columnas.
+   --------------------------------------------------------------------- */
+.grilla-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--espacio-md);
+}
+
+.grilla-sellos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espacio-md);
+}
+
+/* ---------------------------------------------------------------------
+   6. MEDIA QUERIES
+   --------------------------------------------------------------------- */
+
+/* Tablet y móvil: la navegación se pliega detrás del botón */
+@media (max-width: 900px) {
+  .menu-boton {
+    display: block;
+    margin-left: auto;
+  }
+
+  .navegacion {
+    display: none;
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+    padding-bottom: var(--espacio-sm);
+  }
+
+  .navegacion--abierta {
+    display: block;
+  }
+
+  .navegacion__lista {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .navegacion__enlace {
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid var(--color-borde);
+  }
+
+  .navegacion__enlace--activo {
+    box-shadow: inset 4px 0 0 var(--color-chocolate);
+  }
+
+  .cabecera__interior {
+    flex-wrap: wrap;
+    padding-block: var(--espacio-xs);
+  }
+
+  .pie__interior {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .seccion {
+    padding-block: var(--espacio-lg);
+  }
+
+  .cabecera__acciones .boton {
+    display: none; /* en móvil el acceso queda en el menú desplegable */
+  }
+
+  .pie__interior {
+    grid-template-columns: 1fr;
+    gap: var(--espacio-md);
+  }
+}
+
+/* Respeta a quien pidió menos animación en su sistema operativo */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

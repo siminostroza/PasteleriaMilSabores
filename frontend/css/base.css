@@ -1,0 +1,198 @@
+/*
+   Nada de este archivo describe un componente concreto ni una zona de la
+   página: eso vive en componentes.css y layout.css. Así, cambiar la marca
+   entera es cambiar el bloque :root de aquí abajo.
+
+/* ---------------------------------------------------------------------
+   1. DISEÑO
+   Los colores y tipografías son los definidos en la propuesta visual del
+   caso. La única variación es --color-texto-suave: el Gris Claro #B0BEC5
+   del documento no alcanza contraste legible sobre el fondo crema, así que
+   se reserva para bordes y estados deshabilitados, y el texto secundario
+   usa un marrón atenuado de la misma familia.
+   --------------------------------------------------------------------- */
+:root {
+  /* Paleta del caso */
+  --color-fondo: #fff5e1; /* Crema Pastel   */
+  --color-rosa: #ffc0cb; /* Rosa Suave     */
+  --color-chocolate: #8b4513; /* Chocolate      */
+  --color-texto: #5d4037; /* Marrón Oscuro  */
+  --color-gris-claro: #b0bec5; /* Gris Claro     */
+
+  /* Derivados para superficies y estados */
+  --color-superficie: #ffffff;
+  --color-superficie-tenue: #fdf0dc;
+  --color-borde: #e7d3b3;
+  --color-texto-suave: #8d7b72;
+  --color-chocolate-oscuro: #6b340f;
+  --color-exito: #2e7d32;
+  --color-error: #c62828;
+
+  /* Tipografías */
+  --fuente-titulo: "Pacifico", "Brush Script MT", cursive;
+  --fuente-texto: "Lato", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* Escala de espaciado: múltiplos de 8px */
+  --espacio-xs: 0.5rem;
+  --espacio-sm: 1rem;
+  --espacio-md: 1.5rem;
+  --espacio-lg: 2.5rem;
+  --espacio-xl: 4rem;
+
+  /* Bordes y sombras */
+  --radio-sm: 6px;
+  --radio-md: 12px;
+  --radio-lg: 20px;
+  --sombra-suave: 0 2px 8px rgba(93, 64, 55, 0.08);
+  --sombra-media: 0 6px 18px rgba(93, 64, 55, 0.14);
+
+  /* Medidas */
+  --ancho-contenido: 1140px;
+  --gutter: 1rem;
+
+  --transicion: 180ms ease-in-out;
+}
+
+/* ---------------------------------------------------------------------
+   2. RESET
+   --------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+  list-style: none;
+}
+
+/* ---------------------------------------------------------------------
+   3. TIPOGRAFÍA BASE
+   Los tamaños usan clamp() para escalar solos entre móvil y escritorio,
+   sin necesidad de un media query por cada título.
+   --------------------------------------------------------------------- */
+body {
+  font-family: var(--fuente-texto);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--fuente-titulo);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--color-chocolate);
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+}
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.4rem);
+}
+
+h4 {
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+p + p {
+  margin-top: var(--espacio-sm);
+}
+
+.texto-suave {
+  color: var(--color-texto-suave);
+}
+
+.texto-centrado {
+  text-align: center;
+}
+
+/* Etiqueta pequeña en mayúsculas, para categorías y antetítulos */
+.etiqueta {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   4. ELEMENTOS COMUNES
+   --------------------------------------------------------------------- */
+a {
+  color: var(--color-chocolate);
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+
+a:hover {
+  color: var(--color-chocolate-oscuro);
+  text-decoration: underline;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* La regla de arriba le gana al display:none que el navegador aplica a
+   [hidden], así que hay que reponerlo. Sin esto, ocultar un elemento con
+   JavaScript (elemento.hidden = true) no tendría ningún efecto visible. */
+[hidden] {
+  display: none !important;
+}
+
+/* Foco visible en todo lo navegable con teclado: requisito de accesibilidad
+   y además evita que el navegador dibuje su contorno por defecto. */
+:focus-visible {
+  outline: 3px solid var(--color-chocolate);
+  outline-offset: 2px;
+  border-radius: var(--radio-sm);
+}
+
+/* Texto solo para lectores de pantalla */
+.solo-lectores {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Utilidades de espaciado. Se usan con moderación: si una regla se repite
+   en varias pantallas, conviene que sea parte del componente y no de aquí. */
+.margen-superior-lg {
+  margin-top: var(--espacio-lg);
+}

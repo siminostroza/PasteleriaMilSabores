@@ -1,0 +1,266 @@
+/*
+   Cada componente se nombra con su bloque y sus partes separadas por
+   doble guion bajo (.tarjeta-producto__nombre) y sus variantes por doble
+   guion (.boton--borde). Leyendo la clase se sabe a qué pieza pertenece.
+
+/* ---------------------------------------------------------------------
+   1. BOTONES
+   --------------------------------------------------------------------- */
+.boton {
+  display: inline-block;
+  padding: 0.7rem 1.4rem;
+  border: 2px solid transparent;
+  border-radius: var(--radio-sm);
+  background-color: var(--color-chocolate);
+  color: var(--color-fondo);
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--transicion),
+    transform var(--transicion);
+}
+
+.boton:hover {
+  background-color: var(--color-chocolate-oscuro);
+  color: var(--color-fondo);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.boton:active {
+  transform: translateY(0);
+}
+
+.boton--borde {
+  background-color: transparent;
+  border-color: var(--color-chocolate);
+  color: var(--color-chocolate);
+}
+
+.boton--borde:hover {
+  background-color: var(--color-chocolate);
+  color: var(--color-fondo);
+}
+
+.boton--rosa {
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+}
+
+.boton--rosa:hover {
+  background-color: #ffa9b8;
+  color: var(--color-chocolate-oscuro);
+}
+
+.boton--bloque {
+  display: block;
+  width: 100%;
+}
+
+.boton[disabled],
+.boton--inactivo {
+  background-color: var(--color-gris-claro);
+  border-color: var(--color-gris-claro);
+  color: #5a6570;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ---------------------------------------------------------------------
+   2. INSIGNIAS Y CONTADORES
+   --------------------------------------------------------------------- */
+.insignia {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Contador del carrito en la cabecera. Cuando está en cero, comunes.js le
+   agrega la variante --vacio para atenuarlo sin sacarlo del marcado. */
+.carrito-contador {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding-inline: 0.35rem;
+  border-radius: 999px;
+  background-color: var(--color-chocolate);
+  color: var(--color-fondo);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.carrito-contador--vacio {
+  background-color: var(--color-gris-claro);
+  color: #4a5560;
+}
+
+/* ---------------------------------------------------------------------
+   3. HERO
+   Es el "componente principal" que pide el caso: información e imagen de
+   la tienda, arriba de todo.
+   --------------------------------------------------------------------- */
+.hero {
+  background-color: var(--color-superficie-tenue);
+  border-bottom: 3px solid var(--color-borde);
+}
+
+.hero__interior {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--espacio-lg);
+  padding-block: var(--espacio-xl);
+}
+
+.hero__titulo {
+  margin-bottom: var(--espacio-sm);
+}
+
+.hero__texto {
+  max-width: 52ch;
+  font-size: 1.05rem;
+  color: var(--color-texto);
+}
+
+.hero__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-xs);
+  margin-top: var(--espacio-md);
+}
+
+.hero__figura {
+  margin: 0;
+}
+
+.hero__imagen {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-media);
+  background-color: var(--color-rosa);
+}
+
+.hero__pie-figura {
+  margin-top: var(--espacio-xs);
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+}
+
+@media (max-width: 800px) {
+  .hero__interior {
+    grid-template-columns: 1fr;
+    padding-block: var(--espacio-lg);
+  }
+
+  .hero__figura {
+    order: -1; /* en móvil la imagen va arriba del texto */
+  }
+}
+
+/* ---------------------------------------------------------------------
+   4. TARJETA DE PRODUCTO
+   --------------------------------------------------------------------- */
+.tarjeta-producto {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+  transition:
+    transform var(--transicion),
+    box-shadow var(--transicion);
+}
+
+.tarjeta-producto:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-media);
+}
+
+/* El color de fondo hace que la tarjeta se vea bien incluso mientras la
+   foto todavía no carga, o si el archivo aún no existe. */
+.tarjeta-producto__imagen {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  background-color: var(--color-superficie-tenue);
+}
+
+.tarjeta-producto__cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.35rem;
+  padding: var(--espacio-sm);
+}
+
+.tarjeta-producto__nombre {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+.tarjeta-producto__precio {
+  margin-top: auto;
+  padding-top: var(--espacio-xs);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-chocolate);
+}
+
+.tarjeta-producto__acciones {
+  margin-top: var(--espacio-xs);
+}
+
+/* ---------------------------------------------------------------------
+   5. SELLOS DE CONFIANZA
+   --------------------------------------------------------------------- */
+.sello {
+  padding: var(--espacio-md);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  text-align: center;
+}
+
+.sello__icono {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.sello__titulo {
+  margin-block: var(--espacio-xs) 0.25rem;
+  font-family: var(--fuente-titulo);
+  font-size: 1.2rem;
+  color: var(--color-chocolate);
+}
+
+.sello__texto {
+  font-size: 0.92rem;
+  color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   6. ESTADOS VACÍOS
+   --------------------------------------------------------------------- */
+.estado-vacio {
+  padding: var(--espacio-lg);
+  border: 2px dashed var(--color-borde);
+  border-radius: var(--radio-md);
+  text-align: center;
+  color: var(--color-texto-suave);
+}
