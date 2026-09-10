@@ -1,7 +1,9 @@
-/*
+/* =====================================================================
+ 
    Este archivo se carga en todas las páginas, así que aquí NO va lógica
    de ninguna pantalla en particular. El carrito vive acá porque su
    contador se muestra en la cabecera de todas ellas.
+   ===================================================================== */
 
 /* Nombre de la llave en localStorage. Se declara una sola vez para que
    ninguna pantalla la escriba a mano y termine leyendo otra distinta. */
@@ -190,7 +192,61 @@ function protegerImagenesDeLaPagina() {
 }
 
 /* ---------------------------------------------------------------------
-   6. ARRANQUE
+   6. AVISOS AL USUARIO
+
+   Reemplazo de alert(). Un alert congela el navegador, no se puede estilizar
+   y se ve igual para un error que para una confirmación. Este aviso aparece
+   en una esquina, se va solo y queda dentro de una región aria-live, de modo
+   que un lector de pantalla lo anuncia sin que el usuario pierda el foco de
+   donde estaba.
+
+   Lo usan el carrito y, más adelante, la validación de los formularios.
+   --------------------------------------------------------------------- */
+
+var MILISEGUNDOS_AVISO = 4000;
+
+/**
+ * Devuelve el contenedor de avisos, creándolo la primera vez.
+ * Se crea desde JavaScript para no tener que repetir el mismo div en las
+ * once páginas del sitio.
+ * @returns {HTMLElement} Contenedor de avisos.
+ */
+function obtenerContenedorAvisos() {
+  var contenedor = document.getElementById("avisos");
+
+  if (!contenedor) {
+    contenedor = document.createElement("div");
+    contenedor.id = "avisos";
+    contenedor.className = "avisos";
+    contenedor.setAttribute("role", "status");
+    contenedor.setAttribute("aria-live", "polite");
+    document.body.appendChild(contenedor);
+  }
+
+  return contenedor;
+}
+
+/**
+ * Muestra un aviso temporal en pantalla.
+ * @param {string} texto Mensaje a mostrar.
+ * @param {string} tipo 'exito' o 'error'. Cualquier otro valor es neutro.
+ */
+function mostrarAviso(texto, tipo) {
+  var contenedor = obtenerContenedorAvisos();
+
+  var aviso = document.createElement("p");
+  aviso.className = "aviso aviso--" + (tipo || "neutro");
+  aviso.textContent = texto;
+
+  contenedor.appendChild(aviso);
+
+  window.setTimeout(function () {
+    aviso.remove();
+  }, MILISEGUNDOS_AVISO);
+}
+
+/* ---------------------------------------------------------------------
+   7. ARRANQUE
    --------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
   marcarEnlaceActivo();

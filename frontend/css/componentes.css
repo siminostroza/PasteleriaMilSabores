@@ -1,7 +1,9 @@
-/*
+/* =====================================================================
+
    Cada componente se nombra con su bloque y sus partes separadas por
    doble guion bajo (.tarjeta-producto__nombre) y sus variantes por doble
    guion (.boton--borde). Leyendo la clase se sabe a qué pieza pertenece.
+   ===================================================================== */
 
 /* ---------------------------------------------------------------------
    1. BOTONES
@@ -263,4 +265,248 @@
   border-radius: var(--radio-md);
   text-align: center;
   color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   7. BARRA DE FILTROS
+   --------------------------------------------------------------------- */
+.filtros {
+  padding: var(--espacio-md);
+  margin-bottom: var(--espacio-md);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+}
+
+.filtros__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--espacio-sm);
+  align-items: end;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.campo__etiqueta {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.campo__control {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie);
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  color: var(--color-texto);
+}
+
+.campo__control:focus {
+  border-color: var(--color-chocolate);
+  outline: none;
+}
+
+.filtros__pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-xs);
+  margin-top: var(--espacio-sm);
+  padding-top: var(--espacio-sm);
+  border-top: 1px solid var(--color-borde);
+}
+
+.filtros__contador {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   8. MINI CARRITO
+   --------------------------------------------------------------------- */
+.mini-carrito {
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+  overflow: hidden;
+}
+
+.mini-carrito__titulo {
+  margin: 0;
+  padding: var(--espacio-sm) var(--espacio-md);
+  background-color: var(--color-superficie-tenue);
+  border-bottom: 1px solid var(--color-borde);
+  font-size: 1.2rem;
+}
+
+.mini-carrito__cuerpo {
+  max-height: 340px;
+  overflow-y: auto;
+  padding: var(--espacio-sm);
+}
+
+.mini-carrito__lista {
+  margin: 0;
+}
+
+.mini-carrito__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-xs);
+  padding-block: 0.7rem;
+}
+
+.mini-carrito__item + .mini-carrito__item {
+  border-top: 1px solid var(--color-borde);
+}
+
+.mini-carrito__nombre {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.mini-carrito__detalle {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--color-texto-suave);
+}
+
+.mini-carrito__pie {
+  padding: var(--espacio-sm) var(--espacio-md) var(--espacio-md);
+  border-top: 1px solid var(--color-borde);
+  background-color: var(--color-superficie-tenue);
+}
+
+.mini-carrito__resumen {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--espacio-xs);
+}
+
+.mini-carrito__total {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-chocolate);
+}
+
+.mini-carrito__acciones {
+  display: grid;
+  gap: var(--espacio-xs);
+}
+
+/* Contador + / − de cada línea */
+.contador-cantidad {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.contador-cantidad__boton {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 2px solid var(--color-chocolate);
+  border-radius: var(--radio-sm);
+  background-color: transparent;
+  color: var(--color-chocolate);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color var(--transicion);
+}
+
+.contador-cantidad__boton:hover {
+  background-color: var(--color-chocolate);
+  color: var(--color-fondo);
+}
+
+.contador-cantidad__valor {
+  min-width: 1.6rem;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------------------
+   9. AVISOS
+   Reemplazan a alert(): aparecen en una esquina y se van solos.
+   --------------------------------------------------------------------- */
+.avisos {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-xs);
+  max-width: min(360px, calc(100vw - 2rem));
+}
+
+.aviso {
+  margin: 0;
+  padding: 0.8rem 1rem;
+  border-left: 5px solid var(--color-chocolate);
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie);
+  box-shadow: var(--sombra-media);
+  font-size: 0.92rem;
+  animation: aviso-entra 200ms ease-out;
+}
+
+.aviso--exito {
+  border-left-color: var(--color-exito);
+}
+
+.aviso--error {
+  border-left-color: var(--color-error);
+}
+
+@keyframes aviso-entra {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------------------------------------------------------------
+   10. AÑADIDOS A LA TARJETA DE PRODUCTO PARA EL CATÁLOGO
+   --------------------------------------------------------------------- */
+.tarjeta-producto__tamanos {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+.tarjeta-producto__nota {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--color-texto-suave);
+}
+
+/* En el catálogo la tarjeta tiene dos botones: añadir y ver detalle */
+.tarjeta-producto__acciones {
+  display: grid;
+  gap: var(--espacio-xs);
+}
+
+.tarjeta-producto__nombre a {
+  color: inherit;
 }

@@ -1,7 +1,9 @@
-/* 
+/* =====================================================================
+
    Regla del archivo: aquí va todo lo que coloca cosas en la página
    (dónde y con cuánto aire). Cómo se ve cada pieza por dentro está en
    componentes.css.
+   ===================================================================== */
 
 /* ---------------------------------------------------------------------
    1. CONTENEDOR Y SECCIONES
@@ -214,9 +216,12 @@
    auto-fit + minmax deja que las tarjetas decidan cuántas caben por fila,
    sin escribir un breakpoint por cada cantidad de columnas.
    --------------------------------------------------------------------- */
+/* El mínimo de 220px está calculado: en el catálogo, con el mini carrito de
+   320px al lado, permite tres columnas; en la portada, sin aside, permite
+   cuatro. Con 240px el catálogo se quedaba en dos por unos pocos píxeles. */
 .grilla-productos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: var(--espacio-md);
 }
 
@@ -296,5 +301,38 @@
   *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------
+   7. LAYOUT DEL CATÁLOGO
+   Dos columnas: la lista de productos y, al lado, el mini carrito que el
+   enunciado pide que funcione en esta vista. El carrito se queda pegado al
+   hacer scroll para que el total esté siempre a la vista.
+   --------------------------------------------------------------------- */
+.catalogo-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  align-items: start;
+  gap: var(--espacio-lg);
+}
+
+.catalogo-layout__aside {
+  position: sticky;
+  top: 96px; /* alto de la cabecera + aire */
+}
+
+@media (max-width: 950px) {
+  .catalogo-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* En pantallas angostas el carrito deja de ser una columna lateral y
+       pasa a ser un bloque más, debajo del listado. Queda en ese orden a
+       propósito: si fuera arriba, un carrito vacío empujaría los filtros
+       fuera de la pantalla justo cuando el usuario recién llega. El acceso
+       rápido sigue estando en el ícono de la cabecera. */
+  .catalogo-layout__aside {
+    position: static;
   }
 }

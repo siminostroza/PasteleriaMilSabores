@@ -1,117 +1,441 @@
-// Lista de productos predefinidos
-const productos = [
-  { id: 1, nombre: "Pan", precio: 500 },
-  { id: 2, nombre: "Leche", precio: 900 },
-  { id: 3, nombre: "Café", precio: 2500 },
-  { id: 4, nombre: "Azúcar", precio: 1200 },
-  { id: 5, nombre: "Arroz", precio: 1500 },
-  { id: 6, nombre: "Fideos", precio: 1000 },
-  { id: 7, nombre: "Aceite", precio: 3500 },
-  { id: 8, nombre: "Jugo", precio: 800 },
-  { id: 9, nombre: "Queso", precio: 2700 },
-  { id: 10, nombre: "Mantequilla", precio: 2100 }
-];
-  
-  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-  
-  const productList = document.getElementById('product-list');
-  const cartList = document.getElementById('cart-list');
-  
-  // Mostrar productos
-  function mostrarProductos() {
-    productList.innerHTML = '';
-    productos.forEach(producto => {
-      const div = document.createElement('div');
-      div.className = 'product';
-      div.innerHTML = `
-        <strong>${producto.nombre}</strong><br>
-        Precio: $${producto.precio}<br>
-        <button onclick="agregarAlCarrito(${producto.id})">Agregar al carrito</button>
-      `;
-      productList.appendChild(div);
-    });
-  }
-  
-  // Agregar al carrito
-  function agregarAlCarrito(id) {
-    const producto = productos.find(p => p.id === id);
-    const item = carrito.find(i => i.id === id);
-  
-    if (item) {
-      // Regla formativa: máximo 5 unidades por producto
-      if (item.cantidad >= 5) {
-        alert("Máximo 5 unidades por producto");
-        return;
-      }
+/* =====================================================================
+ 
+   Este archivo se carga en productos.html, producto.html y carrito.html,
+   porque el caso pide que el carrito funcione en las tres. Aquí vive el
+   QUÉ puede hacer el carrito; cada pantalla decide CÓMO lo muestra.
 
-      item.cantidad += 1;
-    } else {
-      carrito.push({ ...producto, cantidad: 1 });
-    }
-  
-    guardarCarrito();
-    mostrarCarrito();
+   El guardado en localStorage lo hacen obtenerCarrito() y guardarCarrito(),
+   que están en comunes.js porque el contador de la cabecera también los usa.
+
+   Depende de:
+     js/datos/productos.js -> buscarProducto()
+     js/formato.js         -> formatearPrecio()
+     js/comunes.js         -> obtenerCarrito(), guardarCarrito(), mostrarAviso()
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. REGLAS DEL NEGOCIO
+
+   El enunciado pide "investigar y definir reglas del carrito de compra
+   mediante lógicas". Estas son las que se aplican, y el porqué de cada una:
+
+   a) Máximo 5 unidades del mismo producto y tamaño. Es una pastelería
+      artesanal: un pedido mayor deja de ser una compra de tienda y pasa a
+      ser un encargo por catálogo, que se coordina por contacto.
+
+   b) Nunca más unidades que el stock de ESE tamaño. El stock vive en cada
+      variante, no en el producto: puede quedar torta mediana y no grande.
+
+   c) El precio se copia al agregar, no se recalcula al mostrar. Si mañana
+      sube el precio, lo que el cliente ya tenía en su carrito no cambia.
+      Es la misma decisión que toma la base de datos al congelar el precio
+      en detalle_pedido.
+
+   d) Dos veces el mismo producto y tamaño se suman en una sola línea, salvo
+      que lleven mensajes personalizados distintos: ahí son dos tortas
+      diferentes y van separadas.
+   --------------------------------------------------------------------- */
+var MAX_UNIDADES_POR_ITEM = 5;
+
+/* ---------------------------------------------------------------------
+   2. IDENTIDAD DE UN ÍTEM
+   --------------------------------------------------------------------- */
+
+/**
+ * Construye la clave que identifica una línea del carrito.
+ * Junta código, tamaño y mensaje: así "torta mediana con mensaje A" y
+ * "torta mediana con mensaje B" conviven como dos líneas distintas.
+ * @param {string} codigo Código del producto.
+ * @param {string} tamano Nombre del tamaño.
+ * @param {string} mensaje Mensaje personalizado, puede ir vacío.
+ * @returns {string} Clave única de la línea.
+ */
+function construirClaveItem(codigo, tamano, mensaje) {
+  return codigo + "|" + tamano + "|" + (mensaje || "");
+}
+
+/**
+ * Busca una línea del carrito por su clave.
+ * @param {Array} carrito Carrito actual.
+ * @param {string} clave Clave de la línea.
+ * @returns {Object|undefined} La línea, o undefined si no está.
+ */
+function buscarItemCarrito(carrito, clave) {
+  return carrito.find(function (item) {
+    return item.clave === clave;
+  });
+}
+
+/* ---------------------------------------------------------------------
+   3. OPERACIONES
+   --------------------------------------------------------------------- */
+
+/**
+ * Agrega unidades de un producto al carrito, aplicando las reglas de arriba.
+ *
+ * Devuelve un objeto en vez de lanzar una excepción o mostrar un alert:
+ * quien llama decide cómo comunicar el resultado, y la función se puede
+ * probar sin navegador.
+ *
+ * @param {string} codigo Código del producto, por ejemplo 'TC001'.
+ * @param {string} nombreTamano Nombre del tamaño, por ejemplo 'Mediana'.
+ * @param {number} cantidad Unidades a agregar. Por omisión, 1.
+ * @param {string} mensaje Mensaje personalizado, opcional.
+ * @returns {{ok: boolean, mensaje: string}} Resultado de la operación.
+ */
+function agregarAlCarrito(codigo, nombreTamano, cantidad, mensaje) {
+  var unidades = Number(cantidad) || 1;
+  var producto = buscarProducto(codigo);
+
+  if (!producto) {
+    return { ok: false, mensaje: "Ese producto no existe en el catálogo." };
   }
-  
-  // Disminuir cantidad
-  function disminuirCantidad(id) {
-    const item = carrito.find(i => i.id === id);
-    if (item) {
-      item.cantidad -= 1;
-      if (item.cantidad <= 0) {
-        carrito = carrito.filter(i => i.id !== id);
-      }
-      guardarCarrito();
-      mostrarCarrito();
-    }
+
+  var tamano = producto.tamanos.find(function (t) {
+    return t.nombre === nombreTamano;
+  });
+
+  if (!tamano) {
+    return {
+      ok: false,
+      mensaje: "Ese tamaño no está disponible para este producto.",
+    };
   }
-  
-  // Eliminar del carrito
-  function eliminarDelCarrito(id) {
-    carrito = carrito.filter(item => item.id !== id);
-    guardarCarrito();
-    mostrarCarrito();
+
+  if (unidades < 1) {
+    return { ok: false, mensaje: "La cantidad debe ser al menos 1." };
   }
-  
-  // Vaciar carrito completamente
-  function vaciarCarrito() {
-    carrito = [];
-    guardarCarrito();
-    mostrarCarrito();
+
+  if (mensaje && !producto.permiteMensaje) {
+    return {
+      ok: false,
+      mensaje: "Este producto no admite mensaje personalizado.",
+    };
   }
-  
-  // Guardar en localStorage
-  function guardarCarrito() {
-    localStorage.setItem('carrito', JSON.stringify(carrito));
+
+  var carrito = obtenerCarrito();
+  var clave = construirClaveItem(producto.codigo, tamano.nombre, mensaje);
+  var existente = buscarItemCarrito(carrito, clave);
+  var yaTiene = existente ? existente.cantidad : 0;
+  var total = yaTiene + unidades;
+
+  /* Regla (a): tope por línea */
+  if (total > MAX_UNIDADES_POR_ITEM) {
+    return {
+      ok: false,
+      mensaje:
+        "Máximo " +
+        MAX_UNIDADES_POR_ITEM +
+        " unidades por producto. " +
+        "Para pedidos mayores, escríbenos desde Contacto.",
+    };
   }
-  
-  // Mostrar carrito
-  function mostrarCarrito() {
-    cartList.innerHTML = '';
-  
-    if (carrito.length === 0) {
-      cartList.innerHTML = '<p>El carrito está vacío.</p>';
-      return;
-    }
-  
-    carrito.forEach(item => {
-      const div = document.createElement('div');
-      div.className = 'cart-item';
-      div.innerHTML = `
-        <strong>${item.nombre}</strong><br>
-        Precio: $${item.precio} x ${item.cantidad} = $${item.precio * item.cantidad}<br>
-        <button onclick="agregarAlCarrito(${item.id})">+</button>
-        <button onclick="disminuirCantidad(${item.id})">-</button>
-        <button onclick="eliminarDelCarrito(${item.id})">Eliminar</button>
-      `;
-      cartList.appendChild(div);
+
+  /* Regla (b): tope por stock de esa variante */
+  if (total > tamano.stock) {
+    return {
+      ok: false,
+      mensaje:
+        "Solo quedan " +
+        tamano.stock +
+        " unidades de " +
+        producto.nombre +
+        " en tamaño " +
+        tamano.nombre +
+        ".",
+    };
+  }
+
+  if (existente) {
+    existente.cantidad = total;
+  } else {
+    /* Regla (c): se guarda una copia de los datos, no una referencia */
+    carrito.push({
+      clave: clave,
+      codigo: producto.codigo,
+      nombre: producto.nombre,
+      imagen: producto.imagen,
+      tamano: tamano.nombre,
+      precio: tamano.precio,
+      cantidad: unidades,
+      mensaje: mensaje || "",
     });
-  
-    const total = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0);
-    cartList.innerHTML += `<h3>Total: $${total}</h3>`;
   }
-  
-  // Inicializar
-  mostrarProductos();
-  mostrarCarrito();
-  
+
+  guardarCarrito(carrito);
+
+  return {
+    ok: true,
+    mensaje: producto.nombre + " (" + tamano.nombre + ") agregado al carrito.",
+  };
+}
+
+/**
+ * Suma o resta unidades a una línea existente.
+ * Si la cantidad llega a cero, la línea se elimina.
+ * @param {string} clave Clave de la línea.
+ * @param {number} delta Cuánto sumar; usar -1 para restar.
+ * @returns {{ok: boolean, mensaje: string}} Resultado de la operación.
+ */
+function cambiarCantidadCarrito(clave, delta) {
+  var carrito = obtenerCarrito();
+  var item = buscarItemCarrito(carrito, clave);
+
+  if (!item) {
+    return { ok: false, mensaje: "Ese producto ya no está en el carrito." };
+  }
+
+  var nueva = item.cantidad + Number(delta);
+
+  if (nueva <= 0) {
+    return eliminarDelCarrito(clave);
+  }
+
+  if (nueva > MAX_UNIDADES_POR_ITEM) {
+    return {
+      ok: false,
+      mensaje: "Máximo " + MAX_UNIDADES_POR_ITEM + " unidades por producto.",
+    };
+  }
+
+  /* Se vuelve a consultar el stock del catálogo, porque la línea guardada
+       tiene el precio congelado pero no el stock: ese sí puede haber bajado. */
+  var producto = buscarProducto(item.codigo);
+  var tamano =
+    producto &&
+    producto.tamanos.find(function (t) {
+      return t.nombre === item.tamano;
+    });
+
+  if (tamano && nueva > tamano.stock) {
+    return {
+      ok: false,
+      mensaje: "Solo quedan " + tamano.stock + " unidades disponibles.",
+    };
+  }
+
+  item.cantidad = nueva;
+  guardarCarrito(carrito);
+
+  return { ok: true, mensaje: "Cantidad actualizada." };
+}
+
+/**
+ * Quita una línea completa del carrito.
+ * @param {string} clave Clave de la línea.
+ * @returns {{ok: boolean, mensaje: string}} Resultado de la operación.
+ */
+function eliminarDelCarrito(clave) {
+  var carrito = obtenerCarrito();
+  var quedan = carrito.filter(function (item) {
+    return item.clave !== clave;
+  });
+
+  if (quedan.length === carrito.length) {
+    return { ok: false, mensaje: "Ese producto ya no está en el carrito." };
+  }
+
+  guardarCarrito(quedan);
+  return { ok: true, mensaje: "Producto eliminado del carrito." };
+}
+
+/**
+ * Deja el carrito vacío.
+ * @returns {{ok: boolean, mensaje: string}} Resultado de la operación.
+ */
+function vaciarCarrito() {
+  guardarCarrito([]);
+  return { ok: true, mensaje: "El carrito quedó vacío." };
+}
+
+/* ---------------------------------------------------------------------
+   4. TOTALES
+   --------------------------------------------------------------------- */
+
+/**
+ * Calcula el resumen del carrito.
+ * El descuento por edad o por código promocional NO se aplica aquí: eso lo
+ * resuelve la base de datos al confirmar el pedido, con el usuario ya
+ * identificado. El carrito muestra precios de lista.
+ * @returns {{lineas: number, unidades: number, subtotal: number}} Resumen.
+ */
+function calcularTotalesCarrito() {
+  var carrito = obtenerCarrito();
+
+  return {
+    lineas: carrito.length,
+    unidades: carrito.reduce(function (suma, item) {
+      return suma + item.cantidad;
+    }, 0),
+    subtotal: carrito.reduce(function (suma, item) {
+      return suma + item.precio * item.cantidad;
+    }, 0),
+  };
+}
+
+/* ---------------------------------------------------------------------
+   5. MINI CARRITO
+
+   Panel lateral que acompaña al catálogo y al detalle del producto. La
+   página del carrito completo (carrito.html) es otra pantalla y tendrá su
+   propio dibujo, más detallado.
+
+   Como en comunes.js, la función se va sin hacer nada si la página no tiene
+   el contenedor: así el mismo archivo sirve para las tres pantallas.
+   --------------------------------------------------------------------- */
+
+/**
+ * Dibuja el mini carrito y engancha sus botones.
+ */
+function renderMiniCarrito() {
+  var contenedor = document.getElementById("mini-carrito-cuerpo");
+
+  if (!contenedor) {
+    return;
+  }
+
+  var carrito = obtenerCarrito();
+  var totales = calcularTotalesCarrito();
+  var pie = document.getElementById("mini-carrito-pie");
+
+  contenedor.innerHTML = "";
+
+  if (carrito.length === 0) {
+    var vacio = document.createElement("p");
+    vacio.className = "estado-vacio";
+    vacio.textContent =
+      "Tu carrito está vacío. Agrega productos desde el catálogo.";
+    contenedor.appendChild(vacio);
+
+    if (pie) {
+      pie.hidden = true;
+    }
+    return;
+  }
+
+  var lista = document.createElement("ul");
+  lista.className = "mini-carrito__lista";
+
+  carrito.forEach(function (item) {
+    lista.appendChild(crearLineaMiniCarrito(item));
+  });
+
+  contenedor.appendChild(lista);
+
+  if (pie) {
+    pie.hidden = false;
+    document.getElementById("mini-carrito-unidades").textContent =
+      totales.unidades === 1 ? "1 producto" : totales.unidades + " productos";
+    document.getElementById("mini-carrito-subtotal").textContent =
+      formatearPrecio(totales.subtotal);
+  }
+}
+
+/**
+ * Arma una línea del mini carrito con sus controles de cantidad.
+ * @param {Object} item Línea del carrito.
+ * @returns {HTMLElement} Elemento <li>.
+ */
+function crearLineaMiniCarrito(item) {
+  var li = document.createElement("li");
+  li.className = "mini-carrito__item";
+
+  var info = document.createElement("div");
+
+  var nombre = document.createElement("p");
+  nombre.className = "mini-carrito__nombre";
+  nombre.textContent = item.nombre;
+  info.appendChild(nombre);
+
+  var detalle = document.createElement("p");
+  detalle.className = "mini-carrito__detalle";
+  detalle.textContent =
+    item.tamano + " · " + formatearPrecio(item.precio) + " c/u";
+  info.appendChild(detalle);
+
+  if (item.mensaje) {
+    var mensaje = document.createElement("p");
+    mensaje.className = "mini-carrito__detalle";
+    mensaje.textContent = "“" + item.mensaje + "”";
+    info.appendChild(mensaje);
+  }
+
+  li.appendChild(info);
+
+  var controles = document.createElement("div");
+  controles.className = "contador-cantidad";
+
+  controles.appendChild(
+    crearBotonCantidad(
+      "−",
+      "Quitar una unidad de " + item.nombre,
+      item.clave,
+      -1,
+    ),
+  );
+
+  var cantidad = document.createElement("span");
+  cantidad.className = "contador-cantidad__valor";
+  cantidad.textContent = item.cantidad;
+  controles.appendChild(cantidad);
+
+  controles.appendChild(
+    crearBotonCantidad(
+      "+",
+      "Agregar una unidad de " + item.nombre,
+      item.clave,
+      1,
+    ),
+  );
+
+  li.appendChild(controles);
+
+  return li;
+}
+
+/**
+ * Crea uno de los botones + / − de una línea del mini carrito.
+ * @param {string} simbolo Texto visible del botón.
+ * @param {string} etiqueta Descripción para lectores de pantalla.
+ * @param {string} clave Clave de la línea sobre la que actúa.
+ * @param {number} delta Cuánto suma o resta.
+ * @returns {HTMLButtonElement} Botón listo para insertar.
+ */
+function crearBotonCantidad(simbolo, etiqueta, clave, delta) {
+  var boton = document.createElement("button");
+  boton.type = "button";
+  boton.className = "contador-cantidad__boton";
+  boton.textContent = simbolo;
+  boton.setAttribute("aria-label", etiqueta);
+
+  boton.addEventListener("click", function () {
+    var resultado = cambiarCantidadCarrito(clave, delta);
+
+    if (!resultado.ok) {
+      mostrarAviso(resultado.mensaje, "error");
+    }
+
+    renderMiniCarrito();
+  });
+
+  return boton;
+}
+
+/**
+ * Conecta el botón de vaciar del mini carrito, si la página lo tiene.
+ */
+function activarMiniCarrito() {
+  var botonVaciar = document.getElementById("mini-carrito-vaciar");
+
+  if (botonVaciar) {
+    botonVaciar.addEventListener("click", function () {
+      var resultado = vaciarCarrito();
+      mostrarAviso(resultado.mensaje, "exito");
+      renderMiniCarrito();
+    });
+  }
+
+  renderMiniCarrito();
+}
+
+document.addEventListener("DOMContentLoaded", activarMiniCarrito);
