@@ -510,3 +510,277 @@
 .tarjeta-producto__nombre a {
   color: inherit;
 }
+
+/* ---------------------------------------------------------------------
+   11. FICHA DE PRODUCTO
+   --------------------------------------------------------------------- */
+
+/* Migas de pan: Inicio > Productos > nombre del producto */
+.migas {
+  padding-block: var(--espacio-sm);
+  font-size: 0.9rem;
+}
+
+.migas__lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.migas__separador {
+  color: var(--color-texto-suave);
+}
+
+.migas__actual {
+  color: var(--color-texto-suave);
+}
+
+.detalle__imagen {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-media);
+  background-color: var(--color-superficie-tenue);
+}
+
+.detalle__nombre {
+  margin-block: 0.2rem var(--espacio-xs);
+}
+
+.detalle__codigo {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.detalle__descripcion {
+  margin-top: var(--espacio-sm);
+  font-size: 1.05rem;
+}
+
+/* Ficha técnica: pares de dato y valor */
+.detalle__datos {
+  margin-block: var(--espacio-md);
+  padding: 0;
+  border-top: 1px solid var(--color-borde);
+}
+
+.detalle__dato {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  padding-block: 0.55rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.detalle__dato-titulo {
+  font-weight: 700;
+}
+
+.detalle__precio {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-chocolate);
+}
+
+.detalle__precio-unitario {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.detalle__stock {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-exito);
+}
+
+.detalle__stock--bajo {
+  color: #b26a00;
+}
+
+.detalle__stock--agotado {
+  color: var(--color-error);
+}
+
+/* Formulario de compra */
+.compra {
+  margin-top: var(--espacio-md);
+  padding: var(--espacio-md);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+}
+
+.compra__grupo {
+  margin: 0 0 var(--espacio-md);
+  padding: 0;
+  border: 0;
+}
+
+.compra__leyenda {
+  padding: 0;
+  margin-bottom: var(--espacio-xs);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.compra__fila {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  margin-bottom: var(--espacio-md);
+}
+
+/* Opciones de tamaño. El radio se esconde a la vista pero sigue siendo el
+   que recibe el foco y el que anuncia el lector de pantalla; lo que se ve
+   es la tarjeta, que reacciona con :has() al estado del radio. */
+.opciones-tamano {
+  display: grid;
+  gap: var(--espacio-xs);
+}
+
+.opcion-tamano {
+  display: block;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  cursor: pointer;
+  transition:
+    border-color var(--transicion),
+    background-color var(--transicion);
+}
+
+.opcion-tamano:hover {
+  border-color: var(--color-chocolate);
+}
+
+.opcion-tamano:has(.opcion-tamano__radio:checked) {
+  border-color: var(--color-chocolate);
+  background-color: var(--color-superficie-tenue);
+}
+
+.opcion-tamano:has(.opcion-tamano__radio:focus-visible) {
+  outline: 3px solid var(--color-chocolate);
+  outline-offset: 2px;
+}
+
+.opcion-tamano:has(.opcion-tamano__radio:disabled) {
+  border-color: var(--color-gris-claro);
+  color: var(--color-texto-suave);
+  cursor: not-allowed;
+}
+
+.opcion-tamano__radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.opcion-tamano__texto {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.opcion-tamano__nombre {
+  font-weight: 700;
+}
+
+.opcion-tamano__detalle {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+.opcion-tamano__precio {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--color-chocolate);
+}
+
+.compra__contador {
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-xs);
+}
+
+.compra__ayuda {
+  margin: 0.35rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+.compra__textarea {
+  width: 100%;
+  min-height: 5rem;
+  padding: 0.6rem 0.7rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie);
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  color: var(--color-texto);
+  resize: vertical;
+}
+
+.compra__textarea:focus {
+  border-color: var(--color-chocolate);
+  outline: none;
+}
+
+/* Compartir en redes sociales */
+.compartir {
+  margin-top: var(--espacio-md);
+  padding-top: var(--espacio-md);
+  border-top: 1px solid var(--color-borde);
+}
+
+.compartir__titulo {
+  margin: 0 0 var(--espacio-xs);
+  font-family: var(--fuente-texto);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.compartir__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-xs);
+  margin: 0;
+}
+
+.compartir__boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie);
+  font-family: var(--fuente-texto);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-texto);
+  cursor: pointer;
+  transition:
+    border-color var(--transicion),
+    background-color var(--transicion);
+}
+
+.compartir__boton:hover {
+  border-color: var(--color-chocolate);
+  background-color: var(--color-superficie-tenue);
+  color: var(--color-chocolate);
+  text-decoration: none;
+}

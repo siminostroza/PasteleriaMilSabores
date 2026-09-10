@@ -336,3 +336,40 @@
     position: static;
   }
 }
+
+/* ---------------------------------------------------------------------
+   8. LAYOUT DE LA FICHA DE PRODUCTO
+   Dos columnas: la foto grande y, al lado, los datos y el formulario de
+   compra. La columna de la foto se queda fija al hacer scroll porque la
+   de la derecha es más alta cuando el producto tiene mensaje y tamaños.
+   --------------------------------------------------------------------- */
+.detalle-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: var(--espacio-lg);
+}
+
+.detalle-layout__figura {
+  position: sticky;
+  top: 96px;
+  margin: 0;
+}
+
+/* El mini carrito de esta página no es una columna lateral: va debajo de
+   la ficha, centrado y con ancho acotado para que no se estire a lo
+   ancho de la pantalla. */
+.bloque-angosto {
+  max-width: 520px;
+  margin-inline: auto;
+}
+
+@media (max-width: 900px) {
+  .detalle-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .detalle-layout__figura {
+    position: static;
+  }
+}

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Detalle de producto de Pastelería 1000 Sabores: tamaños, precios, personalización con mensaje y compra directa."
+    />
+    <title>Detalle del producto — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+      <div class="contenedor cabecera__interior">
+        <a class="marca" href="index.html">
+          <img
+            class="marca__logo"
+            src="img/logo/logo-mil-sabores.png"
+            alt="Logotipo de Pastelería 1000 Sabores"
+            width="46"
+            height="46"
+            data-reemplazo="ocultar"
+          />
+          <span class="marca__nombre">
+            1000 Sabores
+            <span class="marca__bajada">Pastelería desde 1975</span>
+          </span>
+        </a>
+
+        <button
+          class="menu-boton"
+          id="menu-boton"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacion-principal"
+        >
+          <span aria-hidden="true">☰</span>
+          <span class="solo-lectores">Abrir menú de navegación</span>
+        </button>
+
+        <nav
+          class="navegacion"
+          id="navegacion-principal"
+          aria-label="Navegación principal"
+        >
+          <ul class="navegacion__lista">
+            <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+            <li>
+              <a class="navegacion__enlace" href="productos.html">Productos</a>
+            </li>
+            <li>
+              <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+            </li>
+            <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+            <li>
+              <a class="navegacion__enlace" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cabecera__acciones">
+          <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+          <a class="carrito-enlace" href="carrito.html">
+            <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+            <span
+              class="carrito-contador carrito-contador--vacio"
+              id="carrito-contador"
+              aria-hidden="true"
+              >0</span
+            >
+            <span class="solo-lectores" id="carrito-etiqueta"
+              >Carrito: 0 productos</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- ==========================================================
+           MIGAS DE PAN
+           ========================================================== -->
+      <nav class="migas" aria-label="Ruta de navegación">
+        <div class="contenedor">
+          <ol class="migas__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li><a href="productos.html">Productos</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li class="migas__actual" id="migas-actual" aria-current="page">
+              Detalle
+            </li>
+          </ol>
+        </div>
+      </nav>
+
+      <!-- ==========================================================
+           PRODUCTO NO ENCONTRADO
+           Se muestra cuando la dirección no trae un código válido.
+           ========================================================== -->
+      <section class="seccion" id="detalle-no-encontrado" hidden>
+        <div class="contenedor">
+          <div class="estado-vacio">
+            <h1>No encontramos ese producto</h1>
+            <p>
+              El enlace puede estar incompleto o el producto ya no está en el
+              catálogo.
+            </p>
+            <p class="margen-superior-lg">
+              <a class="boton" href="productos.html">Volver al catálogo</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           FICHA DEL PRODUCTO
+           El esqueleto está aquí y js/producto-detalle.js lo completa.
+           ========================================================== -->
+      <article class="seccion" id="detalle-articulo">
+        <div class="contenedor detalle-layout">
+          <figure class="detalle-layout__figura">
+            <img
+              class="detalle__imagen"
+              id="detalle-imagen"
+              src=""
+              alt=""
+              width="800"
+              height="600"
+              data-reemplazo
+            />
+          </figure>
+
+          <div class="detalle__info">
+            <p class="etiqueta" id="detalle-categoria"></p>
+            <h1 class="detalle__nombre" id="detalle-nombre"></h1>
+            <p class="detalle__codigo" id="detalle-codigo"></p>
+
+            <p class="detalle__descripcion" id="detalle-descripcion"></p>
+
+            <ul class="detalle__datos" id="detalle-datos">
+              <!-- Los pares dato/valor los genera js/producto-detalle.js -->
+            </ul>
+
+            <!-- ---------- Formulario de compra ---------- -->
+            <form class="compra" id="formulario-compra">
+              <fieldset class="compra__grupo" id="grupo-tamanos">
+                <legend class="compra__leyenda">Elige el tamaño</legend>
+                <div class="opciones-tamano" id="opciones-tamano">
+                  <!-- Las opciones las genera js/producto-detalle.js -->
+                </div>
+              </fieldset>
+
+              <div class="compra__grupo" id="campo-mensaje" hidden>
+                <label class="compra__leyenda" for="mensaje-personalizado">
+                  Mensaje para la torta (opcional)
+                </label>
+                <textarea
+                  class="compra__textarea"
+                  id="mensaje-personalizado"
+                  name="mensaje"
+                  placeholder="¡Feliz cumpleaños, Camila!"
+                ></textarea>
+                <p class="compra__ayuda" id="mensaje-contador" aria-live="polite"></p>
+              </div>
+
+              <div class="compra__fila">
+                <div>
+                  <p class="compra__leyenda" id="etiqueta-cantidad">Cantidad</p>
+                  <div
+                    class="compra__contador contador-cantidad"
+                    role="group"
+                    aria-labelledby="etiqueta-cantidad"
+                  >
+                    <button
+                      class="contador-cantidad__boton"
+                      type="button"
+                      id="cantidad-menos"
+                      aria-label="Quitar una unidad"
+                    >
+                      −
+                    </button>
+                    <span
+                      class="contador-cantidad__valor"
+                      id="cantidad-valor"
+                      aria-live="polite"
+                      >1</span
+                    >
+                    <button
+                      class="contador-cantidad__boton"
+                      type="button"
+                      id="cantidad-mas"
+                      aria-label="Agregar una unidad"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <p class="detalle__precio" id="detalle-precio"></p>
+                  <p
+                    class="detalle__precio-unitario"
+                    id="detalle-precio-unitario"
+                  ></p>
+                  <p class="detalle__stock" id="detalle-stock" aria-live="polite"></p>
+                </div>
+              </div>
+
+              <button class="boton boton--bloque" type="submit" id="boton-agregar">
+                Añadir al carrito
+              </button>
+            </form>
+
+            <!-- ---------- Compartir en redes sociales ---------- -->
+            <div class="compartir">
+              <h2 class="compartir__titulo">Compartir este producto</h2>
+              <ul class="compartir__lista">
+                <li>
+                  <a
+                    class="compartir__boton"
+                    id="compartir-facebook"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span aria-hidden="true">f</span> Facebook
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="compartir__boton"
+                    id="compartir-x"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span aria-hidden="true">✕</span> X
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="compartir__boton"
+                    id="compartir-whatsapp"
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span aria-hidden="true">✆</span> WhatsApp
+                  </a>
+                </li>
+                <li>
+                  <button class="compartir__boton" type="button" id="compartir-copiar">
+                    <span aria-hidden="true">🔗</span> Copiar enlace
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ==========================================================
+           CARRITO DE ESTA VISTA
+           El caso pide que el carrito funcione también en el detalle.
+           ========================================================== -->
+      <section class="seccion seccion--tenue" aria-labelledby="titulo-mini-carrito">
+        <div class="contenedor">
+          <div class="mini-carrito bloque-angosto">
+            <h2 class="mini-carrito__titulo" id="titulo-mini-carrito">
+              <span aria-hidden="true">🛒</span> Tu carrito
+            </h2>
+
+            <div class="mini-carrito__cuerpo" id="mini-carrito-cuerpo">
+              <!-- Las líneas las genera js/carrito.js -->
+            </div>
+
+            <div class="mini-carrito__pie" id="mini-carrito-pie" hidden>
+              <div class="mini-carrito__resumen">
+                <span id="mini-carrito-unidades">0 productos</span>
+                <span class="mini-carrito__total" id="mini-carrito-subtotal">$0</span>
+              </div>
+
+              <div class="mini-carrito__acciones">
+                <a class="boton" href="carrito.html">Ir al carrito</a>
+                <button class="boton boton--borde" type="button" id="mini-carrito-vaciar">
+                  Vaciar carrito
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           PRODUCTOS RELACIONADOS
+           ========================================================== -->
+      <section class="seccion" id="seccion-relacionados" aria-labelledby="titulo-relacionados" hidden>
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-relacionados">De la misma categoría</h2>
+          </div>
+
+          <div class="grilla-productos" id="relacionados">
+            <!-- Las tarjetas las genera js/producto-detalle.js -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+      <div class="contenedor pie__interior">
+        <div>
+          <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+          <p>
+            Tortas, postres y pastelería tradicional chilena desde 1975.
+            Endulzando los momentos importantes de nuestros clientes.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Navegación</h3>
+          <ul class="pie__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Contacto</h3>
+          <ul class="pie__lista">
+            <li>Av. Providencia 1234, Santiago</li>
+            <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+            <li>
+              <a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a>
+            </li>
+            <li>Lunes a sábado, 9:00 a 20:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pie__legal">
+        © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+      </p>
+    </footer>
+
+    <!-- Scripts al final del body. El orden importa: primero los datos,
+         después las utilidades, luego el carrito y al final la lógica de
+         esta pantalla, que usa todo lo anterior. -->
+    <script src="js/datos/productos.js"></script>
+    <script src="js/formato.js"></script>
+    <script src="js/comunes.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/producto-detalle.js"></script>
+  </body>
+</html>
