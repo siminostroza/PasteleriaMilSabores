@@ -969,3 +969,134 @@
     width: 100%;
   }
 }
+
+/* ---------------------------------------------------------------------
+   13. FORMULARIOS Y ESTADOS DE VALIDACIÓN
+
+   Reutiliza .campo, .campo__etiqueta y .campo__control de la sección 7,
+   que nacieron para la barra de filtros del catálogo. Lo que se agrega
+   aquí es el contenedor del formulario y lo que pasa cuando un campo
+   queda mal: el borde rojo, el mensaje y el texto de ayuda.
+   --------------------------------------------------------------------- */
+.formulario {
+  max-width: 560px;
+  margin-inline: auto;
+  padding: var(--espacio-lg);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+}
+
+.formulario--ancho {
+  max-width: 100%;
+}
+
+.formulario__titulo {
+  margin: 0 0 var(--espacio-xs);
+  font-size: 1.6rem;
+}
+
+.formulario__bajada {
+  margin: 0 0 var(--espacio-md);
+  color: var(--color-texto-suave);
+}
+
+/* Rejilla para los formularios largos, como registro y los mantenedores.
+   Un campo marcado con --completo ocupa la fila entera. */
+.formulario__grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--espacio-sm);
+}
+
+.campo--completo {
+  grid-column: 1 / -1;
+}
+
+.campo {
+  margin-bottom: var(--espacio-sm);
+}
+
+/* El asterisco de campo obligatorio se agrega desde el CSS para no
+   repetirlo en cada etiqueta del HTML. */
+.campo__etiqueta--obligatorio::after {
+  content: " *";
+  color: var(--color-error);
+}
+
+/* Texto de apoyo escrito en el HTML: dice qué se espera ANTES de que la
+   persona se equivoque. Es la parte de "sugerencias" del enunciado que no
+   depende de que haya un error. */
+.campo__ayuda {
+  margin: 0.3rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+/* Mensaje de error. Nace oculto con el atributo hidden y lo muestra
+   validaciones.js; role="alert" hace que un lector de pantalla lo lea en
+   cuanto aparece. */
+.campo__error {
+  margin: 0.3rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-error);
+}
+
+/* Estado de error del control. Se marca con clase y no solo con :invalid
+   del navegador, porque :invalid se activa desde el primer carácter y
+   dejaría el formulario en rojo mientras la persona todavía escribe. */
+.campo__control--error {
+  border-color: var(--color-error);
+  background-color: #fff7f6;
+}
+
+.campo__control--error:focus {
+  border-color: var(--color-error);
+  outline: 3px solid rgba(198, 40, 40, 0.25);
+  outline-offset: 1px;
+}
+
+.campo__control:disabled {
+  background-color: var(--color-superficie-tenue);
+  color: var(--color-texto-suave);
+  cursor: not-allowed;
+}
+
+.formulario__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-xs);
+  margin-top: var(--espacio-md);
+}
+
+.formulario__pie {
+  margin-top: var(--espacio-md);
+  padding-top: var(--espacio-md);
+  border-top: 1px solid var(--color-borde);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Casilla de verificación con su etiqueta al lado */
+.campo--casilla {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.campo--casilla .campo__control {
+  width: auto;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .formulario {
+    padding: var(--espacio-md);
+  }
+
+  .formulario__acciones .boton {
+    width: 100%;
+  }
+}
