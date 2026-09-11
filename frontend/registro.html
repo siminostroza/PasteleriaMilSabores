@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   
+    <!-- Tipografías del caso: Lato para el texto, Pacifico para los títulos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+
+    <!-- Hojas de estilo propias, externas y separadas por responsabilidad -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/componentes.css">
+
+</head>
+<body>
+    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
+        <form class="formulario w-100" id="formRegistro" novalidate>
+            <h1 class="formulario__titulo texto-centrado">Pastelería Mil Sabores</h2>
+            <span class="formulario__titulo texto-centrado">Crea tu cuenta</span>
+
+
+            <!-- Rut -->
+            <div class="campo">
+                <label for="regInputRut" class="campo__etiqueta--obligatorio">Rut</label>
+                <!--En el JS de validaciones, cambiar la clase 'campo__control' a 'campo__control--error'
+                    cuando no se cumpla la condicion-->
+                <input type="num" class="campo__control" id="regInputRut" aria-describedby="rutHelp" required>
+                <p class="campo__error" id="error-regInputRut" hidden>
+            </div>
+
+            <!-- Nombre y Apellido-->
+            <div class="formulario__grilla">
+                <div class="campo">
+                    <label for="regInputNombre" class="campo__etiqueta--obligatorio">Nombre</label>
+                    <input type="text" class="campo__control" id="regInputNombre" aria-describedby="textHelp" required>
+                <p class="campo__error" id="error-regInputNombre" hidden>
+                </div>
+    
+                <div class="campo">
+                    <label for="regInputApellido" class="campo__etiqueta--obligatorio">Apellido</label>
+                    <input type="text" class="campo__control" id="regInputApellido" aria-describedby="textHelp" required>
+                <p class="campo__error" id="error-regInputApellido" hidden>
+                </div>
+            </div>
+
+            <!-- Correo -->
+            <div class="campo">
+                <label for="regInputEmail" class="campo__etiqueta--obligatorio">Correo</label>
+                <input type="email" class="campo__control" id="regInputEmail" aria-describedby="emailHelp" required>
+                <p class="campo__error" id="error-regInputEmail" hidden>
+            </div>
+            
+            <!-- Telefono -->
+            <div class="campo">
+                <label for="regInputTel" class="campo__etiqueta--obligatorio">Telefono</label>
+                <input type="tel" class="campo__control" id="regInputTel" aria-describedby="telHelp" required>
+                <p class="campo__error" id="error-regInputTel" hidden>
+            </div>
+
+            <!-- Contraseña y Confirmar  -->
+            <div class="formulario__grilla">
+                <div class="campo">
+                    <label for="regInputPassword" class="campo__etiqueta--obligatorio">Contraseña</label>
+                    <input type="password" class="campo__control" id="regInputPassword" required>
+                    <p class="campo__error" id="error-regInputPassword" hidden>
+                </div>
+    
+                <div class="campo">
+                    <label for="regInputRPassword" class="campo__etiqueta--obligatorio">Confirmar Contraseña</label>
+                    <input type="password" class="campo__control" id="regInputCPassword" required>
+                    <p class="campo__error" id="error-regInputCPassword" hidden>
+                </div>
+            </div>
+
+            <!-- Checkbox Recordar contraseña -->
+            <div class="campo campo--casilla">
+                <input type="checkbox" class="campo__control" id="rememberPasswordCheck">
+                <label class="campo__etiqueta mb-0" for="rememberPasswordCheck">Recordar Contraseña</label>
+            </div>
+
+            <!-- Botón Submit -->
+            <div class="formulario__acciones">
+                <button type="submit" class="boton boton--bloque">Registrar Usuario</button>
+            </div>
+
+
+            <!-- Pie de reg y register-->
+            <div class="formulario__pie">
+                <p class="form-text">¿Ya tienes una cuenta?</p><a href="reg.html">Inicia Sesión aquí</a>
+            </div>
+        </form>
+    </body>
+
+    <script src="js/validaciones.js"></script>
+    <script src="js/registro.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -22,6 +22,9 @@
    duocuc.cl y profesor.duocuc.cl, que es la escritura real del dominio
    institucional de Duoc UC. Si el equipo decide alinear las dos capas,
    este arreglo es el único lugar que hay que tocar. */
+
+
+
 var DOMINIOS_PERMITIDOS = [
   "duoc.cl",
   "duocuc.cl",
