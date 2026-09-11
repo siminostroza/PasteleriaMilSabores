@@ -1082,6 +1082,7 @@
 /* Casilla de verificación con su etiqueta al lado */
 .campo--casilla {
   display: flex;
+  flex-direction: row;
   align-items: center;
   gap: 0.5rem;
 }
