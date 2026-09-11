@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Revisa tu carrito de compras en Pastelería 1000 Sabores: productos, tamaños, cantidades y total antes de confirmar tu pedido."
+    />
+    <title>Tu carrito — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+      <div class="contenedor cabecera__interior">
+        <a class="marca" href="index.html">
+          <img
+            class="marca__logo"
+            src="img/logo/logo-mil-sabores.png"
+            alt="Logotipo de Pastelería 1000 Sabores"
+            width="46"
+            height="46"
+            data-reemplazo="ocultar"
+          />
+          <span class="marca__nombre">
+            1000 Sabores
+            <span class="marca__bajada">Pastelería desde 1975</span>
+          </span>
+        </a>
+
+        <button
+          class="menu-boton"
+          id="menu-boton"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacion-principal"
+        >
+          <span aria-hidden="true">☰</span>
+          <span class="solo-lectores">Abrir menú de navegación</span>
+        </button>
+
+        <nav
+          class="navegacion"
+          id="navegacion-principal"
+          aria-label="Navegación principal"
+        >
+          <ul class="navegacion__lista">
+            <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+            <li>
+              <a class="navegacion__enlace" href="productos.html">Productos</a>
+            </li>
+            <li>
+              <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+            </li>
+            <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+            <li>
+              <a class="navegacion__enlace" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cabecera__acciones">
+          <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+          <a class="carrito-enlace" href="carrito.html">
+            <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+            <span
+              class="carrito-contador carrito-contador--vacio"
+              id="carrito-contador"
+              aria-hidden="true"
+              >0</span
+            >
+            <span class="solo-lectores" id="carrito-etiqueta"
+              >Carrito: 0 productos</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- ==========================================================
+           MIGAS DE PAN
+           ========================================================== -->
+      <nav class="migas" aria-label="Ruta de navegación">
+        <div class="contenedor">
+          <ol class="migas__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li><a href="productos.html">Productos</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li class="migas__actual" aria-current="page">Carrito</li>
+          </ol>
+        </div>
+      </nav>
+
+      <section class="seccion" aria-labelledby="titulo-carrito">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h1 id="titulo-carrito">Tu carrito</h1>
+            <p>
+              Revisa las cantidades y los tamaños antes de continuar. Puedes
+              modificar o eliminar cualquier producto desde aquí.
+            </p>
+          </div>
+
+          <!-- ==========================================================
+               CARRITO VACÍO
+               ========================================================== -->
+          <div class="estado-vacio bloque-angosto" id="carrito-vacio" hidden>
+            <p><strong>Todavía no agregaste nada.</strong></p>
+            <p>
+              Date una vuelta por el catálogo: tenemos tortas, postres
+              individuales y opciones sin azúcar, sin gluten y veganas.
+            </p>
+            <p class="margen-superior-lg">
+              <a class="boton" href="productos.html">Ver el catálogo</a>
+            </p>
+          </div>
+
+          <!-- ==========================================================
+               CARRITO CON PRODUCTOS
+               ========================================================== -->
+          <div class="carrito-layout" id="carrito-contenido" hidden>
+            <div class="carrito-layout__lista">
+              <h2 class="solo-lectores">Productos en el carrito</h2>
+
+              <ul class="carrito-lista" id="carrito-lineas">
+                <!-- Las líneas las genera js/carrito.js -->
+              </ul>
+
+              <div class="carrito-acciones">
+                <a class="boton boton--borde" href="productos.html">
+                  Seguir comprando
+                </a>
+                <button class="boton boton--borde" type="button" id="carrito-vaciar">
+                  Vaciar carrito
+                </button>
+              </div>
+            </div>
+
+            <!-- ---------- Resumen de la compra ---------- -->
+            <aside class="carrito-layout__resumen" aria-labelledby="titulo-resumen">
+              <div class="resumen">
+                <h2 class="resumen__titulo" id="titulo-resumen">
+                  Resumen de tu compra
+                </h2>
+
+                <dl class="resumen__lista">
+                  <div class="resumen__fila">
+                    <dt>Productos</dt>
+                    <dd id="resumen-unidades">0 productos</dd>
+                  </div>
+                  <div class="resumen__fila">
+                    <dt>Subtotal</dt>
+                    <dd id="resumen-subtotal">$0</dd>
+                  </div>
+                  <div class="resumen__fila resumen__fila--total">
+                    <dt>Total</dt>
+                    <dd id="resumen-total">$0</dd>
+                  </div>
+                </dl>
+
+                <p class="resumen__nota">
+                  Los precios son de lista. Tu descuento por edad o por código
+                  promocional, y el costo de despacho, se calculan al confirmar
+                  el pedido con tu sesión iniciada.
+                </p>
+
+                <a class="boton boton--bloque" href="login.html">
+                  Continuar compra
+                </a>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+      <div class="contenedor pie__interior">
+        <div>
+          <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+          <p>
+            Tortas, postres y pastelería tradicional chilena desde 1975.
+            Endulzando los momentos importantes de nuestros clientes.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Navegación</h3>
+          <ul class="pie__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Contacto</h3>
+          <ul class="pie__lista">
+            <li>Av. Providencia 1234, Santiago</li>
+            <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+            <li>
+              <a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a>
+            </li>
+            <li>Lunes a sábado, 9:00 a 20:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pie__legal">
+        © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+      </p>
+    </footer>
+
+    <!-- Scripts al final del body. El orden importa: primero los datos,
+         después las utilidades y al final el carrito, que es la lógica de
+         esta pantalla. -->
+    <script src="js/datos/productos.js"></script>
+    <script src="js/formato.js"></script>
+    <script src="js/comunes.js"></script>
+    <script src="js/carrito.js"></script>
+  </body>
+</html>

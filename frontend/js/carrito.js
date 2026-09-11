@@ -439,3 +439,260 @@ function activarMiniCarrito() {
 }
 
 document.addEventListener("DOMContentLoaded", activarMiniCarrito);
+
+/* ---------------------------------------------------------------------
+   6. PÁGINA COMPLETA DEL CARRITO (carrito.html)
+
+   El mini carrito de la sección anterior es un resumen que acompaña al
+   catálogo y a la ficha. Esta es la pantalla dedicada que pide el caso:
+   el detalle línea por línea, con precio unitario, cantidad, subtotal de
+   cada una y el total.
+
+   Se apoya en las mismas operaciones de las secciones 3 y 4, así que
+   agregar, modificar y eliminar se comportan exactamente igual aquí que
+   en el resto del sitio. Como el resto del archivo, cada función se va
+   sin hacer nada si la página no tiene sus elementos.
+   --------------------------------------------------------------------- */
+
+/**
+ * Dibuja la página del carrito: o el estado vacío, o la lista con su
+ * resumen. Se llama al cargar y después de cada cambio.
+ */
+function renderPaginaCarrito() {
+  var lista = document.getElementById("carrito-lineas");
+
+  if (!lista) {
+    return;
+  }
+
+  var carrito = obtenerCarrito();
+  var vacio = document.getElementById("carrito-vacio");
+  var contenido = document.getElementById("carrito-contenido");
+
+  vacio.hidden = carrito.length > 0;
+  contenido.hidden = carrito.length === 0;
+
+  if (carrito.length === 0) {
+    lista.innerHTML = "";
+    return;
+  }
+
+  lista.innerHTML = "";
+
+  var fragmento = document.createDocumentFragment();
+
+  carrito.forEach(function (item) {
+    fragmento.appendChild(crearLineaCarrito(item));
+  });
+
+  lista.appendChild(fragmento);
+  actualizarResumenCarrito();
+}
+
+/**
+ * Arma una línea del carrito con su imagen, sus datos, el control de
+ * cantidad, el subtotal y el botón de eliminar.
+ *
+ * Los datos vienen de lo guardado en el carrito y no del catálogo: el
+ * precio quedó congelado al agregar el producto, y así se muestra. Del
+ * catálogo se rescata solo el dato de porciones, que es informativo, y
+ * únicamente si el producto sigue existiendo.
+ *
+ * @param {Object} item Línea del carrito.
+ * @returns {HTMLElement} Elemento <li>.
+ */
+function crearLineaCarrito(item) {
+  var li = document.createElement("li");
+  li.className = "linea-carrito";
+
+  /* ----- Imagen, enlazada a la ficha del producto ----- */
+  var enlaceImagen = document.createElement("a");
+  enlaceImagen.href = "producto.html?codigo=" + encodeURIComponent(item.codigo);
+  enlaceImagen.tabIndex = -1;
+  enlaceImagen.setAttribute("aria-hidden", "true");
+
+  var imagen = document.createElement("img");
+  imagen.className = "linea-carrito__imagen";
+  imagen.src = item.imagen;
+  imagen.alt = item.nombre;
+  imagen.loading = "lazy";
+  imagen.width = 160;
+  imagen.height = 120;
+  protegerImagen(imagen);
+  enlaceImagen.appendChild(imagen);
+  li.appendChild(enlaceImagen);
+
+  /* ----- Nombre, tamaño y mensaje ----- */
+  var datos = document.createElement("div");
+  datos.className = "linea-carrito__datos";
+
+  var nombre = document.createElement("h3");
+  nombre.className = "linea-carrito__nombre";
+
+  var enlaceNombre = document.createElement("a");
+  enlaceNombre.href = "producto.html?codigo=" + encodeURIComponent(item.codigo);
+  enlaceNombre.textContent = item.nombre;
+  nombre.appendChild(enlaceNombre);
+  datos.appendChild(nombre);
+
+  var tamano = document.createElement("p");
+  tamano.className = "linea-carrito__detalle";
+  tamano.textContent = "Tamaño " + item.tamano + porcionesDeItem(item);
+  datos.appendChild(tamano);
+
+  if (item.mensaje) {
+    var mensaje = document.createElement("p");
+    mensaje.className = "linea-carrito__mensaje";
+    mensaje.textContent = "Mensaje: “" + item.mensaje + "”";
+    datos.appendChild(mensaje);
+  }
+
+  var unitario = document.createElement("p");
+  unitario.className = "linea-carrito__detalle";
+  unitario.textContent = formatearPrecio(item.precio) + " por unidad";
+  datos.appendChild(unitario);
+
+  li.appendChild(datos);
+
+  /* ----- Control de cantidad ----- */
+  var cantidad = document.createElement("div");
+  cantidad.className = "contador-cantidad linea-carrito__cantidad";
+  cantidad.setAttribute("role", "group");
+  cantidad.setAttribute("aria-label", "Cantidad de " + item.nombre);
+
+  cantidad.appendChild(
+    crearBotonLinea("−", "Quitar una unidad de " + item.nombre, item.clave, -1),
+  );
+
+  var valor = document.createElement("span");
+  valor.className = "contador-cantidad__valor";
+  valor.textContent = item.cantidad;
+  cantidad.appendChild(valor);
+
+  cantidad.appendChild(
+    crearBotonLinea("+", "Agregar una unidad de " + item.nombre, item.clave, 1),
+  );
+
+  li.appendChild(cantidad);
+
+  /* ----- Subtotal de la línea ----- */
+  var subtotal = document.createElement("p");
+  subtotal.className = "linea-carrito__subtotal";
+  subtotal.textContent = formatearPrecio(item.precio * item.cantidad);
+  li.appendChild(subtotal);
+
+  /* ----- Eliminar ----- */
+  var quitar = document.createElement("button");
+  quitar.type = "button";
+  quitar.className = "linea-carrito__quitar";
+  quitar.textContent = "Eliminar";
+  quitar.setAttribute("aria-label", "Eliminar " + item.nombre + " del carrito");
+
+  quitar.addEventListener("click", function () {
+    var resultado = eliminarDelCarrito(item.clave);
+    mostrarAviso(resultado.mensaje, resultado.ok ? "exito" : "error");
+    renderPaginaCarrito();
+  });
+
+  li.appendChild(quitar);
+
+  return li;
+}
+
+/**
+ * Texto con las porciones del tamaño, cuando el producto sigue en el
+ * catálogo. Devuelve una cadena vacía si ya no está, para que una línea
+ * antigua no rompa la página.
+ * @param {Object} item Línea del carrito.
+ * @returns {string} Texto para agregar al tamaño, o cadena vacía.
+ */
+function porcionesDeItem(item) {
+  var producto = buscarProducto(item.codigo);
+
+  if (!producto) {
+    return "";
+  }
+
+  var tamano = producto.tamanos.find(function (t) {
+    return t.nombre === item.tamano;
+  });
+
+  if (!tamano) {
+    return "";
+  }
+
+  return tamano.porciones === 1
+    ? " · 1 porción"
+    : " · " + tamano.porciones + " porciones";
+}
+
+/**
+ * Crea uno de los botones + / − de una línea de la página del carrito.
+ * @param {string} simbolo Texto visible del botón.
+ * @param {string} etiqueta Descripción para lectores de pantalla.
+ * @param {string} clave Clave de la línea sobre la que actúa.
+ * @param {number} delta Cuánto suma o resta.
+ * @returns {HTMLButtonElement} Botón listo para insertar.
+ */
+function crearBotonLinea(simbolo, etiqueta, clave, delta) {
+  var boton = document.createElement("button");
+  boton.type = "button";
+  boton.className = "contador-cantidad__boton";
+  boton.textContent = simbolo;
+  boton.setAttribute("aria-label", etiqueta);
+
+  boton.addEventListener("click", function () {
+    var resultado = cambiarCantidadCarrito(clave, delta);
+
+    if (!resultado.ok) {
+      mostrarAviso(resultado.mensaje, "error");
+    }
+
+    renderPaginaCarrito();
+  });
+
+  return boton;
+}
+
+/**
+ * Escribe el resumen: cuántas unidades hay y cuánto suman.
+ *
+ * El carrito muestra precios de lista. El descuento por edad o por código
+ * promocional no se calcula aquí porque depende del usuario que confirme
+ * la compra, y eso lo resuelve la base de datos al generar el pedido.
+ */
+function actualizarResumenCarrito() {
+  var totales = calcularTotalesCarrito();
+  var unidades = document.getElementById("resumen-unidades");
+  var subtotal = document.getElementById("resumen-subtotal");
+  var total = document.getElementById("resumen-total");
+
+  if (!unidades) {
+    return;
+  }
+
+  unidades.textContent =
+    totales.unidades === 1 ? "1 producto" : totales.unidades + " productos";
+  subtotal.textContent = formatearPrecio(totales.subtotal);
+  total.textContent = formatearPrecio(totales.subtotal);
+}
+
+/**
+ * Conecta el botón de vaciar de la página y dibuja el carrito por
+ * primera vez.
+ */
+function activarPaginaCarrito() {
+  var vaciar = document.getElementById("carrito-vaciar");
+
+  if (vaciar) {
+    vaciar.addEventListener("click", function () {
+      var resultado = vaciarCarrito();
+      mostrarAviso(resultado.mensaje, "exito");
+      renderPaginaCarrito();
+    });
+  }
+
+  renderPaginaCarrito();
+}
+
+document.addEventListener("DOMContentLoaded", activarPaginaCarrito);

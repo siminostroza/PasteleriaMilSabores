@@ -373,3 +373,33 @@
     position: static;
   }
 }
+
+/* ---------------------------------------------------------------------
+   9. LAYOUT DE LA PÁGINA DEL CARRITO
+   La lista de productos a la izquierda y el resumen de la compra a la
+   derecha, fijo al hacer scroll: en un carrito largo el total tiene que
+   seguir a la vista mientras se ajustan las cantidades.
+   --------------------------------------------------------------------- */
+.carrito-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  align-items: start;
+  gap: var(--espacio-lg);
+}
+
+.carrito-layout__resumen {
+  position: sticky;
+  top: 96px;
+}
+
+@media (max-width: 900px) {
+  .carrito-layout {
+    grid-template-columns: 1fr;
+  }
+
+  /* En móvil el resumen deja de estar fijo y se lee al final, después de
+     haber revisado las líneas. */
+  .carrito-layout__resumen {
+    position: static;
+  }
+}
