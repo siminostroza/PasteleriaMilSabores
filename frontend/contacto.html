@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Escríbenos: pedidos por encargo, tortas personalizadas, dudas sobre tu pedido o alianzas. Pastelería 1000 Sabores, Providencia, Santiago."
+    />
+    <title>Contacto — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+      <div class="contenedor cabecera__interior">
+        <a class="marca" href="index.html">
+          <img
+            class="marca__logo"
+            src="img/logo/logo-mil-sabores.png"
+            alt="Logotipo de Pastelería 1000 Sabores"
+            width="46"
+            height="46"
+            data-reemplazo="ocultar"
+          />
+          <span class="marca__nombre">
+            1000 Sabores
+            <span class="marca__bajada">Pastelería desde 1975</span>
+          </span>
+        </a>
+
+        <button
+          class="menu-boton"
+          id="menu-boton"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacion-principal"
+        >
+          <span aria-hidden="true">☰</span>
+          <span class="solo-lectores">Abrir menú de navegación</span>
+        </button>
+
+        <nav
+          class="navegacion"
+          id="navegacion-principal"
+          aria-label="Navegación principal"
+        >
+          <ul class="navegacion__lista">
+            <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+            <li>
+              <a class="navegacion__enlace" href="productos.html">Productos</a>
+            </li>
+            <li>
+              <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+            </li>
+            <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+            <li>
+              <a class="navegacion__enlace" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cabecera__acciones">
+          <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+          <a class="carrito-enlace" href="carrito.html">
+            <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+            <span
+              class="carrito-contador carrito-contador--vacio"
+              id="carrito-contador"
+              aria-hidden="true"
+              >0</span
+            >
+            <span class="solo-lectores" id="carrito-etiqueta"
+              >Carrito: 0 productos</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- ==========================================================
+           ENCABEZADO
+           ========================================================== -->
+      <section class="seccion seccion--tenue" aria-labelledby="titulo-contacto">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <p class="etiqueta">Contacto</p>
+            <h1 id="titulo-contacto">Hablemos de tu próxima celebración</h1>
+            <p>
+              ¿Necesitas una torta para cien personas, tienes una duda sobre tu
+              pedido o quieres proponernos algo? Escríbenos y te respondemos.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           DATOS DE LA PASTELERÍA
+           Reutiliza las tarjetas de la portada, así que no necesita
+           estilos propios.
+           ========================================================== -->
+      <section class="seccion" aria-labelledby="titulo-datos">
+        <div class="contenedor">
+          <h2 class="solo-lectores" id="titulo-datos">Cómo encontrarnos</h2>
+
+          <div class="grilla-sellos">
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">📍</p>
+              <h3 class="sello__titulo">Nuestro local</h3>
+              <p class="sello__texto">
+                Av. Providencia 1234<br />
+                Providencia, Santiago
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">📞</p>
+              <h3 class="sello__titulo">Teléfono</h3>
+              <p class="sello__texto">
+                <a href="tel:+56221234567">+56 2 2123 4567</a><br />
+                Pedidos por encargo con 48 horas de anticipación
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">✉️</p>
+              <h3 class="sello__titulo">Correo</h3>
+              <p class="sello__texto">
+                <a href="mailto:contacto@milsabores.cl"
+                  >contacto@milsabores.cl</a
+                ><br />
+                Respondemos dentro de 24 horas hábiles
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🕘</p>
+              <h3 class="sello__titulo">Horario</h3>
+              <p class="sello__texto">
+                Lunes a sábado, 9:00 a 20:00<br />
+                Domingos y festivos, cerrado
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           FORMULARIO
+           ========================================================== -->
+      <section
+        class="seccion seccion--tenue"
+        aria-labelledby="titulo-formulario"
+      >
+        <div class="contenedor">
+          <form class="formulario" id="formulario-contacto">
+            <h2 class="formulario__titulo" id="titulo-formulario">
+              Escríbenos
+            </h2>
+            <p class="formulario__bajada">
+              Cuéntanos qué necesitas. Mientras más detalles nos des, mejor te
+              podemos responder.
+            </p>
+
+            <div class="campo">
+              <label
+                class="campo__etiqueta campo__etiqueta--obligatorio"
+                for="nombre"
+              >
+                Nombre
+              </label>
+              <input
+                class="campo__control"
+                type="text"
+                id="nombre"
+                name="nombre"
+                maxlength="100"
+                autocomplete="name"
+              />
+              <p class="campo__ayuda">Máximo 100 caracteres.</p>
+              <p class="campo__error" id="error-nombre" role="alert" hidden></p>
+            </div>
+
+            <div class="campo">
+              <label class="campo__etiqueta" for="correo">Correo</label>
+              <input
+                class="campo__control"
+                type="email"
+                id="correo"
+                name="correo"
+                maxlength="100"
+                autocomplete="email"
+              />
+              <p class="campo__ayuda">
+                Opcional, pero sin él no podemos responderte. Solo @duoc.cl,
+                @duocuc.cl, @profesor.duoc.cl o @gmail.com.
+              </p>
+              <p class="campo__error" id="error-correo" role="alert" hidden></p>
+            </div>
+
+            <div class="campo">
+              <label
+                class="campo__etiqueta campo__etiqueta--obligatorio"
+                for="comentario"
+              >
+                Comentario
+              </label>
+              <textarea
+                class="campo__control compra__textarea"
+                id="comentario"
+                name="comentario"
+                maxlength="500"
+                placeholder="Cuéntanos qué torta tienes en mente, para cuántas personas y para qué fecha."
+              ></textarea>
+              <p
+                class="campo__ayuda"
+                id="comentario-contador"
+                aria-live="polite"
+              ></p>
+              <p
+                class="campo__error"
+                id="error-comentario"
+                role="alert"
+                hidden
+              ></p>
+            </div>
+
+            <div class="formulario__acciones">
+              <button class="boton boton--bloque" type="submit">
+                Enviar mensaje
+              </button>
+            </div>
+
+            <p class="formulario__pie">
+              ¿Prefieres mirar primero?
+              <a href="productos.html">Ve nuestro catálogo</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+      <div class="contenedor pie__interior">
+        <div>
+          <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+          <p>
+            Tortas, postres y pastelería tradicional chilena desde 1975.
+            Endulzando los momentos importantes de nuestros clientes.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Navegación</h3>
+          <ul class="pie__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Contacto</h3>
+          <ul class="pie__lista">
+            <li>Av. Providencia 1234, Santiago</li>
+            <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+            <li>
+              <a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a>
+            </li>
+            <li>Lunes a sábado, 9:00 a 20:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pie__legal">
+        © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+      </p>
+    </footer>
+
+    <!-- Scripts al final del body. El orden importa: las utilidades
+         primero y al final la lógica de esta pantalla. -->
+    <script src="js/comunes.js"></script>
+    <script src="js/validaciones.js"></script>
+    <script src="js/contacto.js"></script>
+  </body>
+</html>
