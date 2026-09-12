@@ -1,0 +1,396 @@
+/* =====================================================================
+   ADMIN.CSS — Sistema administrativo
+   Pastelería 1000 Sabores
+
+   Contiene, en este orden:
+     1. Estructura: menú vertical y contenido
+     2. Menú lateral
+     3. Barra superior del panel
+     4. Tarjetas de resumen
+     5. Tablas de datos
+     6. Insignias de estado
+     7. Media queries
+
+   Se carga DESPUÉS de base.css, layout.css y componentes.css, y solo en
+   las páginas de admin/. Reutiliza los tokens de color y las clases de
+   botones, campos y formularios de la tienda: el administrador se ve
+   distinto por su estructura, no por tener otra paleta.
+
+   El enunciado deja libre el diseño del administrador pero exige un menú
+   visible, así que el menú vertical es el eje de todo el archivo.
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. ESTRUCTURA
+   --------------------------------------------------------------------- */
+.admin {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.admin__contenido {
+  min-width: 0; /* sin esto, una tabla ancha estira la columna entera */
+  padding: var(--espacio-md) var(--espacio-lg) var(--espacio-xl);
+  background-color: var(--color-fondo);
+}
+
+/* ---------------------------------------------------------------------
+   2. MENÚ LATERAL
+   --------------------------------------------------------------------- */
+.admin-menu {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espacio-md);
+  padding: var(--espacio-md);
+  background-color: var(--color-chocolate);
+  color: #f6e7d8;
+}
+
+.admin-menu__marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-bottom: var(--espacio-sm);
+  border-bottom: 1px solid rgba(246, 231, 216, 0.25);
+  color: #f6e7d8;
+}
+
+.admin-menu__marca:hover {
+  color: var(--color-rosa);
+  text-decoration: none;
+}
+
+.admin-menu__nombre {
+  font-family: var(--fuente-titulo);
+  font-size: 1.15rem;
+  line-height: 1.1;
+}
+
+.admin-menu__bajada {
+  display: block;
+  font-family: var(--fuente-texto);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-rosa);
+}
+
+.admin-menu__grupo {
+  margin: 0;
+}
+
+.admin-menu__titulo {
+  margin: 0 0 var(--espacio-xs);
+  padding-inline: 0.6rem;
+  font-family: var(--fuente-texto);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(246, 231, 216, 0.6);
+}
+
+.admin-menu__lista {
+  margin: 0;
+}
+
+.admin-menu__enlace {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: var(--radio-sm);
+  font-weight: 700;
+  color: #f6e7d8;
+}
+
+.admin-menu__enlace:hover {
+  background-color: rgba(255, 192, 203, 0.2);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* La página activa la marca admin-comunes.js leyendo la dirección */
+.admin-menu__enlace--activo {
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+}
+
+.admin-menu__enlace--activo:hover {
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+}
+
+.admin-menu__icono {
+  width: 1.4rem;
+  font-size: 1.05rem;
+  text-align: center;
+}
+
+.admin-menu__pie {
+  margin-top: auto;
+  padding-top: var(--espacio-sm);
+  border-top: 1px solid rgba(246, 231, 216, 0.25);
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------
+   3. BARRA SUPERIOR DEL PANEL
+   --------------------------------------------------------------------- */
+.admin-barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-sm);
+  padding-bottom: var(--espacio-sm);
+  margin-bottom: var(--espacio-md);
+  border-bottom: 2px solid var(--color-borde);
+}
+
+.admin-barra__titulo {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.admin-barra__bajada {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.admin-barra__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-xs);
+}
+
+/* Selector de rol. Existe solo mientras no hay inicio de sesión real:
+   permite demostrar que el menú y los permisos cambian según el rol. */
+.admin-rol {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+}
+
+.admin-rol__select {
+  padding: 0.35rem 0.5rem;
+  border: 2px solid var(--color-borde);
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie);
+  font-family: var(--fuente-texto);
+  font-size: 0.85rem;
+  color: var(--color-texto);
+}
+
+/* ---------------------------------------------------------------------
+   4. TARJETAS DE RESUMEN
+   --------------------------------------------------------------------- */
+.admin-resumen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: var(--espacio-sm);
+  margin-bottom: var(--espacio-lg);
+}
+
+.admin-tarjeta {
+  padding: var(--espacio-md);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-left: 5px solid var(--color-chocolate);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+}
+
+.admin-tarjeta--alerta {
+  border-left-color: var(--color-error);
+}
+
+.admin-tarjeta__cifra {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-chocolate);
+}
+
+.admin-tarjeta__rotulo {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+/* ---------------------------------------------------------------------
+   5. TABLAS DE DATOS
+   El contenedor con overflow-x es el que permite que una tabla ancha se
+   deslice sola en pantallas chicas, sin arrastrar la página completa.
+   --------------------------------------------------------------------- */
+.tabla-caja {
+  overflow-x: auto;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+}
+
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.tabla caption {
+  padding: var(--espacio-sm) var(--espacio-md);
+  font-size: 0.85rem;
+  text-align: left;
+  color: var(--color-texto-suave);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla th,
+.tabla td {
+  padding: 0.7rem var(--espacio-sm);
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tabla thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-superficie-tenue);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tabla tbody tr:hover {
+  background-color: var(--color-superficie-tenue);
+}
+
+.tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.tabla__numero {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabla__acciones {
+  display: flex;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.tabla__miniatura {
+  width: 56px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: var(--radio-sm);
+  background-color: var(--color-superficie-tenue);
+}
+
+/* Botón pequeño para las filas de una tabla */
+.boton--chico {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+.tabla__vacia {
+  padding: var(--espacio-lg);
+  text-align: center;
+  color: var(--color-texto-suave);
+}
+
+/* Barra de búsqueda y filtros sobre una tabla */
+.admin-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--espacio-sm);
+  margin-bottom: var(--espacio-sm);
+}
+
+.admin-filtros .campo {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+
+/* ---------------------------------------------------------------------
+   6. INSIGNIAS DE ESTADO
+   --------------------------------------------------------------------- */
+.estado {
+  display: inline-block;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.estado--activo {
+  background-color: #e3f2e5;
+  color: #1f5c23;
+}
+
+.estado--inactivo {
+  background-color: #eceff1;
+  color: #4a5560;
+}
+
+.estado--critico {
+  background-color: #fdecea;
+  color: #a32019;
+}
+
+.estado--rol {
+  background-color: var(--color-superficie-tenue);
+  color: var(--color-chocolate);
+  border: 1px solid var(--color-borde);
+}
+
+/* ---------------------------------------------------------------------
+   7. MEDIA QUERIES
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* El menú deja de ser columna y pasa a ser una banda horizontal
+     arriba del contenido: sigue siendo visible, que es lo que exige el
+     enunciado, sin comerse la mitad de una pantalla angosta. */
+  .admin {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-menu {
+    gap: var(--espacio-sm);
+  }
+
+  .admin-menu__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .admin-menu__pie {
+    margin-top: 0;
+  }
+
+  .admin__contenido {
+    padding: var(--espacio-md) var(--gutter) var(--espacio-lg);
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-barra {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-barra__acciones {
+    width: 100%;
+  }
+}

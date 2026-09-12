@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Mantenedor de productos del catálogo." />
+    <title>Productos — Administración Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="../img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/componentes.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+
+  <body>
+    <a class="solo-lectores" href="#admin-contenido">Saltar al contenido</a>
+
+    <div class="admin">
+      <!-- ==========================================================
+           MENÚ VERTICAL
+           Requisito del enunciado: el administrador debe tener un menú
+           visible. Los data-permiso deciden qué ve cada rol.
+           ========================================================== -->
+      <nav class="admin-menu" aria-label="Menú del administrador">
+        <a class="admin-menu__marca" href="index.html">
+          <span aria-hidden="true">🎂</span>
+          <span class="admin-menu__nombre">
+            1000 Sabores
+            <span class="admin-menu__bajada">Administración</span>
+          </span>
+        </a>
+
+        <div class="admin-menu__grupo">
+          <h2 class="admin-menu__titulo">General</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="index.html">
+                <span class="admin-menu__icono" aria-hidden="true">▦</span> Panel
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__grupo" data-permiso="PRODUCTO_VER">
+          <h2 class="admin-menu__titulo">Productos</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="productos.html">
+                <span class="admin-menu__icono" aria-hidden="true">☰</span> Listado
+              </a>
+            </li>
+            <li data-permiso="PRODUCTO_CREAR">
+              <a class="admin-menu__enlace" href="producto-form.html">
+                <span class="admin-menu__icono" aria-hidden="true">＋</span> Nuevo producto
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__grupo" data-permiso="USUARIO_VER">
+          <h2 class="admin-menu__titulo">Usuarios</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="usuarios.html">
+                <span class="admin-menu__icono" aria-hidden="true">☰</span> Listado
+              </a>
+            </li>
+            <li data-permiso="USUARIO_CREAR">
+              <a class="admin-menu__enlace" href="usuario-form.html">
+                <span class="admin-menu__icono" aria-hidden="true">＋</span> Nuevo usuario
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__pie">
+          <a href="../index.html">← Volver a la tienda</a>
+        </div>
+      </nav>
+
+      <main class="admin__contenido" id="admin-contenido">
+        <div class="admin-barra">
+          <div>
+            <h1 class="admin-barra__titulo" id="admin-titulo">Productos</h1>
+            <p class="admin-barra__bajada" id="admin-bajada">Listado del catálogo. Desde aquí se crean, editan y dan de baja.</p>
+          </div>
+
+          <div class="admin-barra__acciones">
+            <a class="boton" href="producto-form.html" data-permiso="PRODUCTO_CREAR">
+              Nuevo producto
+            </a>
+            <!-- Selector de rol: existe solo mientras no hay inicio de
+                 sesión real, para poder demostrar que el menú y los
+                 permisos cambian según el rol. -->
+            <p class="admin-rol">
+              <label for="admin-rol-select">Rol:</label>
+              <select class="admin-rol__select" id="admin-rol-select"></select>
+            </p>
+          </div>
+        </div>
+
+        <section aria-labelledby="titulo-listado">
+          <h2 class="solo-lectores" id="titulo-listado">Listado de productos</h2>
+
+          <form class="admin-filtros" id="filtros-productos" role="search">
+            <div class="campo">
+              <label class="campo__etiqueta" for="buscar-producto">Buscar</label>
+              <input
+                class="campo__control"
+                type="search"
+                id="buscar-producto"
+                placeholder="nombre o código"
+                autocomplete="off"
+              />
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta" for="filtrar-categoria">Categoría</label>
+              <select class="campo__control" id="filtrar-categoria">
+                <option value="">Todas</option>
+              </select>
+            </div>
+          </form>
+
+          <p class="filtros__contador" id="productos-contador" aria-live="polite"></p>
+
+          <div class="tabla-caja">
+            <table class="tabla">
+              <caption>
+                Productos del catálogo con su tamaño de referencia
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col"><span class="solo-lectores">Imagen</span></th>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Categoría</th>
+                  <th scope="col">Tamaño</th>
+                  <th scope="col">Precio</th>
+                  <th scope="col">Stock</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-productos"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../js/datos/productos.js"></script>
+    <script src="../js/datos/usuarios.js"></script>
+    <script src="../js/comunes.js"></script>
+    <script src="../js/formato.js"></script>
+    <script src="../js/validaciones.js"></script>
+    <script src="../js/admin/admin-comunes.js"></script>
+    <script src="../js/admin/admin-productos.js"></script>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Alta y edición de usuarios del sistema." />
+    <title>Nuevo usuario — Administración Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="../img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../css/base.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/componentes.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+
+  <body>
+    <a class="solo-lectores" href="#admin-contenido">Saltar al contenido</a>
+
+    <div class="admin">
+      <!-- ==========================================================
+           MENÚ VERTICAL
+           Requisito del enunciado: el administrador debe tener un menú
+           visible. Los data-permiso deciden qué ve cada rol.
+           ========================================================== -->
+      <nav class="admin-menu" aria-label="Menú del administrador">
+        <a class="admin-menu__marca" href="index.html">
+          <span aria-hidden="true">🎂</span>
+          <span class="admin-menu__nombre">
+            1000 Sabores
+            <span class="admin-menu__bajada">Administración</span>
+          </span>
+        </a>
+
+        <div class="admin-menu__grupo">
+          <h2 class="admin-menu__titulo">General</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="index.html">
+                <span class="admin-menu__icono" aria-hidden="true">▦</span> Panel
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__grupo" data-permiso="PRODUCTO_VER">
+          <h2 class="admin-menu__titulo">Productos</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="productos.html">
+                <span class="admin-menu__icono" aria-hidden="true">☰</span> Listado
+              </a>
+            </li>
+            <li data-permiso="PRODUCTO_CREAR">
+              <a class="admin-menu__enlace" href="producto-form.html">
+                <span class="admin-menu__icono" aria-hidden="true">＋</span> Nuevo producto
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__grupo" data-permiso="USUARIO_VER">
+          <h2 class="admin-menu__titulo">Usuarios</h2>
+          <ul class="admin-menu__lista">
+            <li>
+              <a class="admin-menu__enlace" href="usuarios.html">
+                <span class="admin-menu__icono" aria-hidden="true">☰</span> Listado
+              </a>
+            </li>
+            <li data-permiso="USUARIO_CREAR">
+              <a class="admin-menu__enlace" href="usuario-form.html">
+                <span class="admin-menu__icono" aria-hidden="true">＋</span> Nuevo usuario
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="admin-menu__pie">
+          <a href="../index.html">← Volver a la tienda</a>
+        </div>
+      </nav>
+
+      <main class="admin__contenido" id="admin-contenido">
+        <div class="admin-barra">
+          <div>
+            <h1 class="admin-barra__titulo" id="admin-titulo">Nuevo usuario</h1>
+            <p class="admin-barra__bajada" id="admin-bajada">Completa los datos del usuario. Los campos con asterisco son obligatorios.</p>
+          </div>
+
+          <div class="admin-barra__acciones">
+            <p class="admin-rol">
+              <label for="admin-rol-select">Rol:</label>
+              <select class="admin-rol__select" id="admin-rol-select"></select>
+            </p>
+          </div>
+        </div>
+
+        <form class="formulario formulario--ancho" id="formulario-usuario">
+          <div class="formulario__grilla">
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="run">RUN</label>
+              <input class="campo__control" type="text" id="run" name="run" maxlength="12" autocomplete="off" />
+            <p class="campo__ayuda" id="ayuda-run">
+                Escríbelo como quieras: al salir del campo se guarda sin puntos ni
+                guion, como 19011022K.
+              </p>
+              <p class="campo__error" id="error-run" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="tipoUsuario">Tipo de usuario</label>
+              <select class="campo__control" id="tipoUsuario" name="tipoUsuario">
+                <option value="">Elige un tipo</option>
+              </select>
+            <p class="campo__ayuda" id="ayuda-tipoUsuario">Define a qué partes del sistema tendrá acceso.</p>
+              <p class="campo__error" id="error-tipoUsuario" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="nombre">Nombre</label>
+              <input class="campo__control" type="text" id="nombre" name="nombre" maxlength="50" autocomplete="given-name" />
+            <p class="campo__ayuda" id="ayuda-nombre">Máximo 50 caracteres.</p>
+              <p class="campo__error" id="error-nombre" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="apellidos">Apellidos</label>
+              <input class="campo__control" type="text" id="apellidos" name="apellidos" maxlength="100" autocomplete="family-name" />
+            <p class="campo__ayuda" id="ayuda-apellidos">Máximo 100 caracteres.</p>
+              <p class="campo__error" id="error-apellidos" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="correo">Correo</label>
+              <input class="campo__control" type="email" id="correo" name="correo" maxlength="100" autocomplete="email" />
+            <p class="campo__ayuda" id="ayuda-correo">Solo @duoc.cl, @duocuc.cl, @profesor.duoc.cl o @gmail.com.</p>
+              <p class="campo__error" id="error-correo" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta" for="fechaNacimiento">Fecha de nacimiento</label>
+              <input class="campo__control" type="date" id="fechaNacimiento" name="fechaNacimiento" />
+            <p class="campo__ayuda" id="ayuda-fechaNacimiento">Opcional.</p>
+              <p class="campo__error" id="error-fechaNacimiento" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="region">Región</label>
+              <select class="campo__control" id="region" name="region">
+                <option value="">Elige una región</option>
+              </select>
+              <p class="campo__error" id="error-region" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="comuna">Comuna</label>
+              <select class="campo__control" id="comuna" name="comuna" disabled>
+                <option value="">Primero elige una región</option>
+              </select>
+            <p class="campo__ayuda" id="ayuda-comuna">La lista cambia según la región elegida.</p>
+              <p class="campo__error" id="error-comuna" role="alert" hidden></p>
+            </div>
+            <div class="campo campo--completo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="direccion">Dirección</label>
+              <input class="campo__control" type="text" id="direccion" name="direccion" maxlength="300" autocomplete="street-address" />
+            <p class="campo__ayuda" id="ayuda-direccion">Calle, número y departamento o casa. Máximo 300 caracteres.</p>
+              <p class="campo__error" id="error-direccion" role="alert" hidden></p>
+            </div>
+          </div>
+
+          <div class="formulario__acciones">
+            <button class="boton" type="submit" id="boton-guardar">Crear usuario</button>
+            <a class="boton boton--borde" href="usuarios.html">Cancelar</a>
+          </div>
+        </form>
+      </main>
+    </div>
+
+    <script src="../js/datos/usuarios.js"></script>
+    <script src="../js/datos/regiones.js"></script>
+    <script src="../js/comunes.js"></script>
+    <script src="../js/formato.js"></script>
+    <script src="../js/validaciones.js"></script>
+    <script src="../js/admin/admin-comunes.js"></script>
+    <script src="../js/admin/admin-usuarios.js"></script>
+  </body>
+</html>
