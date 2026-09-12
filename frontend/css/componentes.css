@@ -1101,3 +1101,136 @@
     width: 100%;
   }
 }
+
+/* ---------------------------------------------------------------------
+   14. PÁGINA NOSOTROS
+   --------------------------------------------------------------------- */
+
+/* Envoltorio del video incrustado.
+
+   Un iframe de YouTube trae un tamaño fijo en píxeles y se desborda en
+   pantallas angostas. La caja de aquí abajo le impone la proporción 16:9 y
+   deja que el iframe la llene: el video escala solo y nunca provoca scroll
+   horizontal. */
+.video {
+  position: relative;
+  width: 100%;
+  max-width: 860px;
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-media);
+  background-color: var(--color-superficie-tenue);
+}
+
+.video iframe,
+.video video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.video__pie {
+  max-width: 860px;
+  margin: var(--espacio-xs) auto 0;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+}
+
+/* Línea de tiempo de la historia de la pastelería.
+
+   Es una lista ordenada de verdad, no una sucesión de divs: los hitos
+   tienen un orden que importa, y así un lector de pantalla lo anuncia. */
+.linea-tiempo {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 var(--espacio-lg);
+  list-style: none;
+  counter-reset: hito;
+}
+
+/* La línea vertical que une los hitos */
+.linea-tiempo::before {
+  content: "";
+  position: absolute;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  left: 7px;
+  width: 3px;
+  background-color: var(--color-borde);
+}
+
+.hito {
+  position: relative;
+  padding-bottom: var(--espacio-md);
+}
+
+.hito:last-child {
+  padding-bottom: 0;
+}
+
+/* El punto sobre la línea */
+.hito::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: calc(-1 * var(--espacio-lg) + 1px);
+  width: 17px;
+  height: 17px;
+  border: 3px solid var(--color-fondo);
+  border-radius: 50%;
+  background-color: var(--color-chocolate);
+}
+
+.hito--destacado::before {
+  background-color: var(--color-rosa);
+}
+
+.hito__anio {
+  display: block;
+  font-family: var(--fuente-titulo);
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: var(--color-chocolate);
+}
+
+.hito__titulo {
+  margin: 0.1rem 0 0.3rem;
+  font-family: var(--fuente-texto);
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.hito__texto {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+/* Ficha de cada integrante del equipo. Se apoya en .sello, que ya existe,
+   y solo agrega la inicial dentro de un círculo. */
+.persona__inicial {
+  display: inline-grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background-color: var(--color-rosa);
+  color: var(--color-chocolate-oscuro);
+  font-family: var(--fuente-titulo);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.persona__rol {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}

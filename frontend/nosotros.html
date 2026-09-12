@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Cincuenta años de repostería chilena: nuestra historia, el récord Guinness de 1995, cómo apoyamos a estudiantes de gastronomía y quiénes hacemos esta tienda."
+    />
+    <title>Nosotros — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+      <div class="contenedor cabecera__interior">
+        <a class="marca" href="index.html">
+          <img
+            class="marca__logo"
+            src="img/logo/logo-mil-sabores.png"
+            alt="Logotipo de Pastelería 1000 Sabores"
+            width="46"
+            height="46"
+            data-reemplazo="ocultar"
+          />
+          <span class="marca__nombre">
+            1000 Sabores
+            <span class="marca__bajada">Pastelería desde 1975</span>
+          </span>
+        </a>
+
+        <button
+          class="menu-boton"
+          id="menu-boton"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacion-principal"
+        >
+          <span aria-hidden="true">☰</span>
+          <span class="solo-lectores">Abrir menú de navegación</span>
+        </button>
+
+        <nav
+          class="navegacion"
+          id="navegacion-principal"
+          aria-label="Navegación principal"
+        >
+          <ul class="navegacion__lista">
+            <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+            <li>
+              <a class="navegacion__enlace" href="productos.html">Productos</a>
+            </li>
+            <li>
+              <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+            </li>
+            <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+            <li>
+              <a class="navegacion__enlace" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cabecera__acciones">
+          <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+          <a class="carrito-enlace" href="carrito.html">
+            <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+            <span
+              class="carrito-contador carrito-contador--vacio"
+              id="carrito-contador"
+              aria-hidden="true"
+              >0</span
+            >
+            <span class="solo-lectores" id="carrito-etiqueta"
+              >Carrito: 0 productos</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <!-- ==========================================================
+           PRESENTACIÓN
+           ========================================================== -->
+      <section class="seccion seccion--tenue" aria-labelledby="titulo-nosotros">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <p class="etiqueta">Nosotros</p>
+            <h1 id="titulo-nosotros">Medio siglo endulzando Chile</h1>
+            <p>
+              Pastelería 1000 Sabores abrió sus puertas en 1975 en Providencia.
+              Cincuenta años después seguimos amasando con las mismas recetas,
+              ahora también para quienes nos compran desde su casa.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           VIDEO INSTITUCIONAL
+           ========================================================== -->
+      <section class="seccion" aria-labelledby="titulo-video">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-video">Conoce nuestro taller</h2>
+            <p>
+              Un recorrido por la cocina donde se preparan todos los días
+              nuestras tortas, postres y pastelería tradicional.
+            </p>
+          </div>
+
+          <!-- PENDIENTE DEL EQUIPO: reemplazar VIDEO_ID_AQUI por el
+               identificador del video del proyecto. Está en la dirección de
+               YouTube después de "v=":
+                 https://www.youtube.com/watch?v=ESTE_ES_EL_ID
+               Mientras no se reemplace, el recuadro muestra un aviso de
+               YouTube en vez del video. -->
+          <div class="video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/VIDEO_ID_AQUI"
+              title="Recorrido por el taller de Pastelería 1000 Sabores"
+              loading="lazy"
+              allow="
+                accelerometer;
+                clipboard-write;
+                encrypted-media;
+                gyroscope;
+                picture-in-picture;
+              "
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <p class="video__pie">
+            Grabado en nuestro local de Av. Providencia 1234, Santiago.
+          </p>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           HISTORIA
+           ========================================================== -->
+      <section class="seccion seccion--tenue" aria-labelledby="titulo-historia">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-historia">Nuestra historia</h2>
+            <p>
+              Cuatro momentos que explican por qué nuestras tortas saben como
+              saben.
+            </p>
+          </div>
+
+          <ol class="linea-tiempo">
+            <li class="hito">
+              <span class="hito__anio">1975</span>
+              <h3 class="hito__titulo">Abre el primer local</h3>
+              <p class="hito__texto">
+                Un horno, dos mesones y las recetas de familia que todavía
+                usamos para la torta de manjar y la empanada de manzana. La masa
+                sigue amasándose a mano cada mañana.
+              </p>
+            </li>
+
+            <li class="hito hito--destacado">
+              <span class="hito__anio">1995</span>
+              <h3 class="hito__titulo">Récord Guinness</h3>
+              <p class="hito__texto">
+                Participamos junto a pasteleros de todo el país en la creación
+                de la torta más grande del mundo. Fue la primera vez que nuestro
+                nombre salió de Providencia.
+              </p>
+            </li>
+
+            <li class="hito">
+              <span class="hito__anio">2010</span>
+              <h3 class="hito__titulo">Recetas para todos</h3>
+              <p class="hito__texto">
+                Sumamos las líneas sin azúcar, sin gluten y vegana. Nos costó
+                tres años dar con una torta vegana de chocolate que estuviera a
+                la altura de la original.
+              </p>
+            </li>
+
+            <li class="hito">
+              <span class="hito__anio">2025</span>
+              <h3 class="hito__titulo">La pastelería en tu casa</h3>
+              <p class="hito__texto">
+                Cumplimos 50 años abriendo nuestra tienda en línea, con despacho
+                a domicilio y personalización de cada torta con el mensaje que
+                quieras.
+              </p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           MISIÓN Y VISIÓN
+           ========================================================== -->
+      <section class="seccion" aria-labelledby="titulo-proposito">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-proposito">Qué nos mueve</h2>
+          </div>
+
+          <div class="grilla-sellos">
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🎯</p>
+              <h3 class="sello__titulo">Misión</h3>
+              <p class="sello__texto">
+                Ofrecer una experiencia dulce y memorable, con tortas y
+                productos de repostería de alta calidad para todas las
+                ocasiones, celebrando nuestras raíces históricas y fomentando la
+                creatividad en la repostería.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🔭</p>
+              <h3 class="sello__titulo">Visión</h3>
+              <p class="sello__texto">
+                Ser la tienda en línea líder de productos de repostería en
+                Chile, reconocida por su innovación, su calidad y su impacto
+                positivo en la comunidad, especialmente en la formación de
+                nuevos talentos de la gastronomía.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           IMPACTO COMUNITARIO
+           ========================================================== -->
+      <section class="seccion seccion--tenue" aria-labelledby="titulo-impacto">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-impacto">Cuando compras acá</h2>
+            <p>
+              Parte de lo que vendemos vuelve a la escuela de gastronomía y al
+              barrio donde nacimos.
+            </p>
+          </div>
+
+          <div class="grilla-sellos">
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🎓</p>
+              <h3 class="sello__titulo">Estudiantes en el taller</h3>
+              <p class="sello__texto">
+                Cada semestre recibimos estudiantes de gastronomía Duoc UC en
+                práctica. Varias de nuestras recetas nuevas salieron de sus
+                propuestas.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🎂</p>
+              <h3 class="sello__titulo">Torta de cumpleaños</h3>
+              <p class="sello__texto">
+                Si te registras con tu correo institucional Duoc UC, tu torta de
+                cumpleaños va por nuestra cuenta, una vez al año.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🏘️</p>
+              <h3 class="sello__titulo">Proveedores del barrio</h3>
+              <p class="sello__texto">
+                La fruta, los huevos y la harina los compramos a productores de
+                la Región Metropolitana y de Valparaíso.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="sello__icono" aria-hidden="true">🤝</p>
+              <h3 class="sello__titulo">Descuento por edad</h3>
+              <p class="sello__texto">
+                Quienes tienen más de 50 años acceden a un 50% de descuento en
+                todo el catálogo. Cumplimos años junto a ellos.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+           EQUIPO DE DESARROLLO
+           El enunciado pide que esta vista presente también a quienes
+           desarrollan el sitio.
+           ========================================================== -->
+      <section class="seccion" aria-labelledby="titulo-equipo">
+        <div class="contenedor">
+          <div class="seccion__encabezado">
+            <h2 id="titulo-equipo">Quiénes hicimos esta tienda</h2>
+            <p>
+              Estudiantes de Desarrollo Fullstack II de Duoc UC. Este sitio es
+              nuestro proyecto de la asignatura DSY1104.
+            </p>
+          </div>
+
+          <div class="grilla-sellos">
+            <article class="sello">
+              <p class="persona__inicial" aria-hidden="true">S</p>
+              <h3 class="sello__titulo">
+                Nombre por completar
+                <span class="persona__rol">Rol por definir</span>
+              </h3>
+              <p class="sello__texto">
+                Detalles por rellenar: qué hizo cada integrante del equipo, qué
+                tecnologías usó y qué aprendió en el proceso de desarrollo.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="persona__inicial" aria-hidden="true">?</p>
+              <h3 class="sello__titulo">
+                Nombre por completar
+                <span class="persona__rol">Rol por definir</span>
+              </h3>
+              <p class="sello__texto">
+                Detalles por rellenar: qué hizo cada integrante del equipo, qué
+                tecnologías usó y qué aprendió en el proceso de desarrollo.
+              </p>
+            </article>
+
+            <article class="sello">
+              <p class="persona__inicial" aria-hidden="true">?</p>
+              <h3 class="sello__titulo">
+                Nombre por completar
+                <span class="persona__rol">Rol por definir</span>
+              </h3>
+              <p class="sello__texto">
+                Detalles por rellenar: qué hizo cada integrante del equipo, qué
+                tecnologías usó y qué aprendió en el proceso de desarrollo.
+              </p>
+            </article>
+          </div>
+
+          <p class="texto-centrado margen-superior-lg">
+            <a class="boton" href="contacto.html">Escríbenos</a>
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+      <div class="contenedor pie__interior">
+        <div>
+          <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+          <p>
+            Tortas, postres y pastelería tradicional chilena desde 1975.
+            Endulzando los momentos importantes de nuestros clientes.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Navegación</h3>
+          <ul class="pie__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Contacto</h3>
+          <ul class="pie__lista">
+            <li>Av. Providencia 1234, Santiago</li>
+            <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+            <li>
+              <a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a>
+            </li>
+            <li>Lunes a sábado, 9:00 a 20:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pie__legal">
+        © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+      </p>
+    </footer>
+
+    <!-- Esta página no tiene lógica propia: solo necesita el
+         comportamiento común a todo el sitio. -->
+    <script src="js/comunes.js"></script>
+  </body>
+</html>
