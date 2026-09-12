@@ -22,9 +22,6 @@
    duocuc.cl y profesor.duocuc.cl, que es la escritura real del dominio
    institucional de Duoc UC. Si el equipo decide alinear las dos capas,
    este arreglo es el único lugar que hay que tocar. */
-
-
-
 var DOMINIOS_PERMITIDOS = [
   "duoc.cl",
   "duocuc.cl",
@@ -47,6 +44,8 @@ var LARGO = {
   DESCRIPCION_PRODUCTO: 500,
   RUN_MIN: 7,
   RUN_MAX: 9,
+  TELEFONO_MIN: 8,
+  TELEFONO_MAX: 12,
 };
 
 /* Dominios mal escritos que la gente teclea a menudo, y a qué dominio
@@ -197,6 +196,35 @@ function esNumeroNoNegativo(valor) {
 }
 
 /**
+ * Deja el teléfono solo con sus dígitos y el signo + inicial si lo trae.
+ * La gente escribe +56 9 1234 5678, (9) 1234-5678 o 912345678, y las tres
+ * son el mismo número.
+ * @param {string} telefono Teléfono en cualquier formato.
+ * @returns {string} Teléfono sin espacios ni signos de puntuación.
+ */
+function limpiarTelefono(telefono) {
+  var texto = String(telefono || "").trim();
+  var masInicial = texto.charAt(0) === "+" ? "+" : "";
+
+  return masInicial + texto.replace(/[^0-9]/g, "");
+}
+
+/**
+ * ¿El teléfono tiene una cantidad de dígitos razonable?
+ * No se valida contra el plan de numeración chileno porque el enunciado no
+ * lo pide y dejaría fuera números extranjeros perfectamente válidos.
+ * @param {string} telefono Teléfono en cualquier formato.
+ * @returns {boolean} true si es aceptable.
+ */
+function esTelefonoValido(telefono) {
+  var digitos = limpiarTelefono(telefono).replace("+", "");
+
+  return (
+    digitos.length >= LARGO.TELEFONO_MIN && digitos.length <= LARGO.TELEFONO_MAX
+  );
+}
+
+/**
  * ¿La fecha existe y quedó en el pasado?
  * @param {string} valor Fecha en formato AAAA-MM-DD.
  * @returns {boolean} true si es una fecha pasada válida.
@@ -238,13 +266,42 @@ function esFechaPasada(valor) {
    --------------------------------------------------------------------- */
 
 /**
+ * Arma la frase de campo obligatorio concordando con el nombre del campo.
+ *
+ * Los nombres se escriben con su artículo ("El correo", "La contraseña",
+ * "Los apellidos"), así que el artículo mismo dice el género y el número.
+ * Sin esto salía "La contraseña es obligatorio", que se lee mal en la
+ * pantalla que más van a mirar los usuarios.
+ *
+ * @param {string} campo Nombre visible del campo, con su artículo.
+ * @returns {string} Mensaje concordado.
+ */
+function fraseObligatorio(campo) {
+  var articulo = String(campo || "").trim().split(" ")[0].toLowerCase();
+
+  if (articulo === "los") {
+    return campo + " son obligatorios.";
+  }
+
+  if (articulo === "las") {
+    return campo + " son obligatorias.";
+  }
+
+  if (articulo === "la") {
+    return campo + " es obligatoria.";
+  }
+
+  return campo + " es obligatorio.";
+}
+
+/**
  * Exige que el campo venga con algo.
  * @param {string} campo Nombre visible del campo.
  * @returns {Function} Regla de validación.
  */
 function reglaRequerido(campo) {
   return function (valor) {
-    return tieneContenido(valor) ? null : campo + " es obligatorio.";
+    return tieneContenido(valor) ? null : fraseObligatorio(campo);
   };
 }
 
@@ -409,6 +466,28 @@ function reglaNumeroNoNegativo(campo) {
 }
 
 /**
+ * Exige un teléfono con una cantidad de dígitos razonable.
+ * @param {string} campo Nombre visible del campo.
+ * @returns {Function} Regla de validación.
+ */
+function reglaTelefono(campo) {
+  return function (valor) {
+    if (!tieneContenido(valor)) {
+      return null;
+    }
+
+    return esTelefonoValido(valor)
+      ? null
+      : campo +
+          " debe tener entre " +
+          LARGO.TELEFONO_MIN +
+          " y " +
+          LARGO.TELEFONO_MAX +
+          " dígitos. Por ejemplo: +56912345678.";
+  };
+}
+
+/**
  * Exige una fecha pasada y válida.
  * @param {string} campo Nombre visible del campo.
  * @returns {Function} Regla de validación.
@@ -444,7 +523,7 @@ function reglaOpcionElegida(campo) {
  * @returns {Function} Regla de validación.
  */
 function reglaIgualA(idOtroCampo, mensaje) {
-  return function (valor) {
+  var regla = function (valor) {
     var otro = document.getElementById(idOtroCampo);
 
     if (!otro || valor === otro.value) {
@@ -453,6 +532,14 @@ function reglaIgualA(idOtroCampo, mensaje) {
 
     return mensaje;
   };
+
+  /* La regla deja anotado de qué campo depende. configurarValidacion lee
+     esta marca para volver a revisar la confirmación cuando cambia el campo
+     original: si alguien escribe la contraseña, la repite bien y después
+     corrige la primera, el error tiene que reaparecer solo. */
+  regla.dependeDe = idOtroCampo;
+
+  return regla;
 }
 
 /* ---------------------------------------------------------------------
@@ -562,6 +649,33 @@ function limpiarErrorCampo(control) {
    --------------------------------------------------------------------- */
 
 /**
+ * Arma qué campos hay que revisar cuando cambia otro.
+ * Recorre el esquema buscando reglas que hayan declarado dependeDe, y
+ * devuelve un objeto { campoOriginal: [camposQueDependenDeEl] }.
+ * @param {Object} esquema Esquema del formulario.
+ * @returns {Object} Mapa de dependencias.
+ */
+function mapaDeDependencias(esquema) {
+  var mapa = {};
+
+  Object.keys(esquema).forEach(function (id) {
+    esquema[id].forEach(function (regla) {
+      if (!regla.dependeDe) {
+        return;
+      }
+
+      if (!mapa[regla.dependeDe]) {
+        mapa[regla.dependeDe] = [];
+      }
+
+      mapa[regla.dependeDe].push(id);
+    });
+  });
+
+  return mapa;
+}
+
+/**
  * Corre las reglas de un campo y pinta el resultado.
  * @param {HTMLElement} control Campo del formulario.
  * @param {Array} reglas Reglas a aplicar, en orden.
@@ -608,6 +722,36 @@ function configurarValidacion(formulario, esquema, alEnviarValido) {
      redactar ni traducir. Se apaga para quedarnos con la nuestra. */
   formulario.setAttribute("novalidate", "novalidate");
 
+  var dependientes = mapaDeDependencias(esquema);
+
+  /**
+   * Vuelve a revisar los campos que dependen del que se acaba de tocar.
+   *
+   * Se revisan los que ya tienen un error a la vista, para que se limpie
+   * solo al corregir, y también los que ya están escritos aunque estén sin
+   * error: si alguien repite bien la contraseña y después cambia la
+   * primera, el error tiene que reaparecer. Los campos todavía vacíos se
+   * dejan en paz, para no marcar en rojo algo que la persona ni ha tocado.
+   *
+   * @param {string} id Campo que cambió.
+   */
+  var revisarDependientes = function (id) {
+    (dependientes[id] || []).forEach(function (otroId) {
+      var otro = document.getElementById(otroId);
+
+      if (!otro) {
+        return;
+      }
+
+      var tieneError = otro.classList.contains("campo__control--error");
+      var yaEscrito = String(otro.value || "").length > 0;
+
+      if (tieneError || yaEscrito) {
+        validarCampo(otro, esquema[otroId]);
+      }
+    });
+  };
+
   Object.keys(esquema).forEach(function (id) {
     var control = document.getElementById(id);
 
@@ -617,12 +761,15 @@ function configurarValidacion(formulario, esquema, alEnviarValido) {
 
     control.addEventListener("blur", function () {
       validarCampo(control, esquema[id]);
+      revisarDependientes(id);
     });
 
     control.addEventListener("input", function () {
       if (control.classList.contains("campo__control--error")) {
         validarCampo(control, esquema[id]);
       }
+
+      revisarDependientes(id);
     });
   });
 
@@ -765,6 +912,31 @@ function reglasClaveRegistro() {
       reglaIgualA("clave", "Las dos contraseñas no coinciden."),
     ],
   };
+}
+
+/**
+ * Registro de un cliente en la tienda.
+ *
+ * Se arma a partir de esquemaUsuario(false) en vez de repetir sus reglas:
+ * el enunciado dice que registrarse es lo mismo que crear un usuario en el
+ * administrador, así que si mañana cambia una regla de usuario, cambia en
+ * los dos lados sola. Lo propio del registro es el teléfono y la
+ * contraseña con su confirmación.
+ *
+ * @returns {Object} Esquema de validación.
+ */
+function esquemaRegistro() {
+  var esquema = esquemaUsuario(false);
+
+  esquema.telefono = [reglaTelefono("El teléfono")];
+
+  var claves = reglasClaveRegistro();
+
+  Object.keys(claves).forEach(function (id) {
+    esquema[id] = claves[id];
+  });
+
+  return esquema;
 }
 
 /**

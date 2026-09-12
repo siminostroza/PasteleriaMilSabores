@@ -1,56 +1,159 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Inicia sesión en Pastelería 1000 Sabores para comprar y seguir tus pedidos." />
+    <title>Iniciar sesión — Pastelería 1000 Sabores</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-   
-    <!-- Tipografías del caso: Lato para el texto, Pacifico para los títulos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
 
-    <!-- Hojas de estilo propias, externas y separadas por responsabilidad -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
 
-</head>
-<body>
-    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
-        <form class="formulario ">
-            <h1 class="formulario__titulo texto-centrado">Pastelería Mil Sabores</h2>
-            <span class="formulario__titulo texto-centrado">Inicia Sesión</span>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
 
-            <div class="campo">
-                <label for="loginInputEmail" class="campo__etiqueta--obligatorio">Ingresa tu correo</label>
-                <input type="email" class="campo__control" id="loginInputEmail" aria-describedby="emailHelp">
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+        <div class="contenedor cabecera__interior">
+
+            <a class="marca" href="index.html">
+                <img class="marca__logo" src="img/logo/logo-mil-sabores.png"
+                     alt="Logotipo de Pastelería 1000 Sabores" width="46" height="46"
+                     data-reemplazo="ocultar">
+                <span class="marca__nombre">
+                    1000 Sabores
+                    <span class="marca__bajada">Pastelería desde 1975</span>
+                </span>
+            </a>
+
+            <button class="menu-boton" id="menu-boton" type="button"
+                    aria-expanded="false" aria-controls="navegacion-principal">
+                <span aria-hidden="true">☰</span>
+                <span class="solo-lectores">Abrir menú de navegación</span>
+            </button>
+
+            <nav class="navegacion" id="navegacion-principal" aria-label="Navegación principal">
+                <ul class="navegacion__lista">
+                    <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+                    <li><a class="navegacion__enlace" href="productos.html">Productos</a></li>
+                    <li><a class="navegacion__enlace" href="nosotros.html">Nosotros</a></li>
+                    <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+                    <li><a class="navegacion__enlace" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="cabecera__acciones">
+                <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+                <a class="carrito-enlace" href="carrito.html">
+                    <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+                    <span class="carrito-contador carrito-contador--vacio"
+                          id="carrito-contador" aria-hidden="true">0</span>
+                    <span class="solo-lectores" id="carrito-etiqueta">Carrito: 0 productos</span>
+                </a>
             </div>
 
+        </div>
+    </header>
+
+    <main id="contenido">
+      <section class="seccion" aria-labelledby="titulo-login">
+        <div class="contenedor">
+          <form class="formulario" id="formulario-login">
+            <h1 class="formulario__titulo" id="titulo-login">Iniciar sesión</h1>
+            <p class="formulario__bajada">
+              Entra con tu cuenta para ver tus pedidos y aprovechar tus descuentos.
+            </p>
+
             <div class="campo">
-                <label for="loginInputPassword" class="campo__etiqueta--obligatorio">Contraseña</label>
-                <input type="password" class="campo__control" id="loginInputPassword">
-                <div id="emailHelp" class="form-text"><a href="#">¿Olvidaste tu contraseña?</a></div>
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="correo">Correo</label>
+              <input class="campo__control" type="email" id="correo" name="correo" maxlength="100" autocomplete="email" />
+            <p class="campo__ayuda" id="ayuda-correo">Usa tu correo @duoc.cl, @duocuc.cl, @profesor.duoc.cl o @gmail.com.</p>
+              <p class="campo__error" id="error-correo" role="alert" hidden></p>
+            </div>
+            <div class="campo">
+              <label class="campo__etiqueta campo__etiqueta--obligatorio" for="clave">Contraseña</label>
+              <input class="campo__control" type="password" id="clave" name="clave" maxlength="10" autocomplete="current-password" />
+            <p class="campo__ayuda" id="ayuda-clave">Entre 4 y 10 caracteres.</p>
+              <p class="campo__error" id="error-clave" role="alert" hidden></p>
             </div>
 
             <div class="campo campo--casilla">
-                <input type="checkbox" class="campo__control" id="rememberPasswordCheck">
-                <label class="campo__etiqueta mb-0" for="rememberPasswordCheck">Recordar Contraseña</label>
+              <input class="campo__control" type="checkbox" id="recordarme" name="recordarme" />
+              <label class="campo__etiqueta" for="recordarme">Mantener la sesión iniciada</label>
             </div>
 
             <div class="formulario__acciones">
-                <button type="submit" class="boton boton--bloque">Iniciar sesión</button>
+              <button class="boton boton--bloque" type="submit">Entrar</button>
             </div>
 
-            <div class="formulario__pie">
-                <p class="form-text">¿No tienes una cuenta?</p><a href="registro.html">Registrate aquí</a>
+            <p class="formulario__pie">
+              ¿Todavía no tienes cuenta?
+              <a href="registro.html">Regístrate aquí</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+        <div class="contenedor pie__interior">
+
+            <div>
+                <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+                <p>
+                    Tortas, postres y pastelería tradicional chilena desde 1975.
+                    Endulzando los momentos importantes de nuestros clientes.
+                </p>
             </div>
-        </form>
-    <div>
 
+            <div>
+                <h3 class="pie__titulo">Navegación</h3>
+                <ul class="pie__lista">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+            <div>
+                <h3 class="pie__titulo">Contacto</h3>
+                <ul class="pie__lista">
+                    <li>Av. Providencia 1234, Santiago</li>
+                    <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+                    <li><a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a></li>
+                    <li>Lunes a sábado, 9:00 a 20:00</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <p class="pie__legal">
+            © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+        </p>
+    </footer>
+
+    <script src="js/comunes.js"></script>
+    <script src="js/validaciones.js"></script>
+    <script src="js/login.js"></script>
+  </body>
 </html>

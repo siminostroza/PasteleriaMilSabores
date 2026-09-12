@@ -439,3 +439,80 @@ function comunasDeRegion(nombreRegion) {
 
   return region ? region.comunas : [];
 }
+
+/* =====================================================================
+   DESPLEGABLES ENCADENADOS
+
+   El enunciado pide que al cambiar la región cambie la búsqueda de las
+   comunas. La comuna arranca deshabilitada: ofrecer un desplegable vacío
+   antes de elegir región solo genera clics en falso.
+
+   Estas dos funciones viven junto a los datos y no en la pantalla que las
+   usa, porque las necesitan dos formularios distintos: el registro de la
+   tienda y el mantenedor de usuarios del administrador. Una sola
+   definición, dos consumidores.
+   ===================================================================== */
+
+/**
+ * Llena el desplegable de regiones y lo encadena con el de comunas.
+ * @param {string} regionInicial Región a dejar elegida, si corresponde.
+ * @param {string} comunaInicial Comuna a dejar elegida, si corresponde.
+ */
+function activarRegionYComuna(regionInicial, comunaInicial) {
+  var selectRegion = document.getElementById("region");
+  var selectComuna = document.getElementById("comuna");
+
+  if (!selectRegion || !selectComuna) {
+    return;
+  }
+
+  REGIONES.forEach(function (region) {
+    var opcion = document.createElement("option");
+    opcion.value = region.nombre;
+    opcion.textContent = region.nombre;
+    selectRegion.appendChild(opcion);
+  });
+
+  selectRegion.addEventListener("change", function () {
+    llenarComunas(selectComuna, selectRegion.value, "");
+  });
+
+  if (regionInicial) {
+    selectRegion.value = regionInicial;
+    llenarComunas(selectComuna, regionInicial, comunaInicial);
+  } else {
+    llenarComunas(selectComuna, "", "");
+  }
+}
+
+/**
+ * Vuelve a armar el desplegable de comunas para una región.
+ * @param {HTMLSelectElement} selectComuna Desplegable de comunas.
+ * @param {string} nombreRegion Región elegida.
+ * @param {string} comunaElegida Comuna a dejar seleccionada, si aplica.
+ */
+function llenarComunas(selectComuna, nombreRegion, comunaElegida) {
+  var comunas = comunasDeRegion(nombreRegion);
+
+  selectComuna.innerHTML = "";
+
+  var vacia = document.createElement("option");
+  vacia.value = "";
+  vacia.textContent = nombreRegion
+    ? "Elige una comuna"
+    : "Primero elige una región";
+  selectComuna.appendChild(vacia);
+
+  comunas.forEach(function (comuna) {
+    var opcion = document.createElement("option");
+    opcion.value = comuna;
+    opcion.textContent = comuna;
+    selectComuna.appendChild(opcion);
+  });
+
+  selectComuna.disabled = comunas.length === 0;
+
+  if (comunaElegida) {
+    selectComuna.value = comunaElegida;
+  }
+}

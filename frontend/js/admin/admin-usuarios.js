@@ -1,13 +1,12 @@
 /* =====================================================================
    Contiene, en este orden:
      1. Listado (admin/usuarios.html)
-     2. Desplegables encadenados de región y comuna
-     3. Formulario de alta y edición (admin/usuario-form.html)
-     4. Arranque
+     2. Formulario de alta y edición (admin/usuario-form.html)
+     3. Arranque
 
    Depende de, en este orden de carga:
      js/datos/usuarios.js  -> USUARIOS, TIPOS_USUARIO, buscarUsuario(), runConFormato()
-     js/datos/regiones.js  -> REGIONES, comunasDeRegion()
+     js/datos/regiones.js  -> activarRegionYComuna()
      js/formato.js         -> formatearFecha()
      js/comunes.js         -> mostrarAviso()
      js/validaciones.js    -> configurarValidacion(), esquemaUsuario(), limpiarRun()
@@ -226,79 +225,7 @@ function activarFiltrosUsuarios() {
 }
 
 /* ---------------------------------------------------------------------
-   2. DESPLEGABLES ENCADENADOS DE REGIÓN Y COMUNA
-
-   El enunciado pide que al cambiar la región cambie la búsqueda de las
-   comunas. La comuna arranca deshabilitada: ofrecer un desplegable vacío
-   antes de elegir región solo genera clics en falso.
-   --------------------------------------------------------------------- */
-
-/**
- * Llena el desplegable de regiones y lo encadena con el de comunas.
- * @param {string} regionInicial Región a dejar elegida, si corresponde.
- * @param {string} comunaInicial Comuna a dejar elegida, si corresponde.
- */
-function activarRegionYComuna(regionInicial, comunaInicial) {
-  var selectRegion = document.getElementById("region");
-  var selectComuna = document.getElementById("comuna");
-
-  if (!selectRegion || !selectComuna) {
-    return;
-  }
-
-  REGIONES.forEach(function (region) {
-    var opcion = document.createElement("option");
-    opcion.value = region.nombre;
-    opcion.textContent = region.nombre;
-    selectRegion.appendChild(opcion);
-  });
-
-  selectRegion.addEventListener("change", function () {
-    llenarComunas(selectComuna, selectRegion.value, "");
-  });
-
-  if (regionInicial) {
-    selectRegion.value = regionInicial;
-    llenarComunas(selectComuna, regionInicial, comunaInicial);
-  } else {
-    llenarComunas(selectComuna, "", "");
-  }
-}
-
-/**
- * Vuelve a armar el desplegable de comunas para una región.
- * @param {HTMLSelectElement} selectComuna Desplegable de comunas.
- * @param {string} nombreRegion Región elegida.
- * @param {string} comunaElegida Comuna a dejar seleccionada, si aplica.
- */
-function llenarComunas(selectComuna, nombreRegion, comunaElegida) {
-  var comunas = comunasDeRegion(nombreRegion);
-
-  selectComuna.innerHTML = "";
-
-  var vacia = document.createElement("option");
-  vacia.value = "";
-  vacia.textContent = nombreRegion
-    ? "Elige una comuna"
-    : "Primero elige una región";
-  selectComuna.appendChild(vacia);
-
-  comunas.forEach(function (comuna) {
-    var opcion = document.createElement("option");
-    opcion.value = comuna;
-    opcion.textContent = comuna;
-    selectComuna.appendChild(opcion);
-  });
-
-  selectComuna.disabled = comunas.length === 0;
-
-  if (comunaElegida) {
-    selectComuna.value = comunaElegida;
-  }
-}
-
-/* ---------------------------------------------------------------------
-   3. FORMULARIO DE ALTA Y EDICIÓN
+   2. FORMULARIO DE ALTA Y EDICIÓN
    --------------------------------------------------------------------- */
 
 /**
@@ -458,7 +385,7 @@ function normalizarRunAlSalir() {
 }
 
 /* ---------------------------------------------------------------------
-   4. ARRANQUE
+   3. ARRANQUE
    --------------------------------------------------------------------- */
 document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("tabla-usuarios")) {

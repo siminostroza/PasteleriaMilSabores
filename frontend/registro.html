@@ -1,105 +1,422 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Crea tu cuenta en Pastelería 1000 Sabores y accede a los descuentos del programa."
+    />
+    <title>Crear cuenta — Pastelería 1000 Sabores</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-   
-    <!-- Tipografías del caso: Lato para el texto, Pacifico para los títulos -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
 
-    <!-- Hojas de estilo propias, externas y separadas por responsabilidad -->
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/componentes.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
 
-</head>
-<body>
-    <div class="container min-vh-100 d-flex justify-content-center align-items-center">
-        <form class="formulario w-100" id="formRegistro" novalidate>
-            <h1 class="formulario__titulo texto-centrado">Pastelería Mil Sabores</h2>
-            <span class="formulario__titulo texto-centrado">Crea tu cuenta</span>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
 
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
 
-            <!-- Rut -->
-            <div class="campo">
-                <label for="regInputRut" class="campo__etiqueta--obligatorio">Rut</label>
-                <!--En el JS de validaciones, cambiar la clase 'campo__control' a 'campo__control--error'
-                    cuando no se cumpla la condicion-->
-                <input type="num" class="campo__control" id="regInputRut" aria-describedby="rutHelp" required>
-                <p class="campo__error" id="error-regInputRut" hidden>
-            </div>
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+      <div class="contenedor cabecera__interior">
+        <a class="marca" href="index.html">
+          <img
+            class="marca__logo"
+            src="img/logo/logo-mil-sabores.png"
+            alt="Logotipo de Pastelería 1000 Sabores"
+            width="46"
+            height="46"
+            data-reemplazo="ocultar"
+          />
+          <span class="marca__nombre">
+            1000 Sabores
+            <span class="marca__bajada">Pastelería desde 1975</span>
+          </span>
+        </a>
 
-            <!-- Nombre y Apellido-->
+        <button
+          class="menu-boton"
+          id="menu-boton"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navegacion-principal"
+        >
+          <span aria-hidden="true">☰</span>
+          <span class="solo-lectores">Abrir menú de navegación</span>
+        </button>
+
+        <nav
+          class="navegacion"
+          id="navegacion-principal"
+          aria-label="Navegación principal"
+        >
+          <ul class="navegacion__lista">
+            <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+            <li>
+              <a class="navegacion__enlace" href="productos.html">Productos</a>
+            </li>
+            <li>
+              <a class="navegacion__enlace" href="nosotros.html">Nosotros</a>
+            </li>
+            <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+            <li>
+              <a class="navegacion__enlace" href="contacto.html">Contacto</a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="cabecera__acciones">
+          <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+          <a class="carrito-enlace" href="carrito.html">
+            <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+            <span
+              class="carrito-contador carrito-contador--vacio"
+              id="carrito-contador"
+              aria-hidden="true"
+              >0</span
+            >
+            <span class="solo-lectores" id="carrito-etiqueta"
+              >Carrito: 0 productos</span
+            >
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="seccion" aria-labelledby="titulo-registro">
+        <div class="contenedor">
+          <form class="formulario formulario--ancho" id="formulario-registro">
+            <h1 class="formulario__titulo" id="titulo-registro">
+              Crear cuenta
+            </h1>
+            <p class="formulario__bajada">
+              Regístrate para comprar, seguir tus pedidos y acceder a nuestros
+              descuentos. Los campos con asterisco son obligatorios.
+            </p>
+
             <div class="formulario__grilla">
-                <div class="campo">
-                    <label for="regInputNombre" class="campo__etiqueta--obligatorio">Nombre</label>
-                    <input type="text" class="campo__control" id="regInputNombre" aria-describedby="textHelp" required>
-                <p class="campo__error" id="error-regInputNombre" hidden>
-                </div>
-    
-                <div class="campo">
-                    <label for="regInputApellido" class="campo__etiqueta--obligatorio">Apellido</label>
-                    <input type="text" class="campo__control" id="regInputApellido" aria-describedby="textHelp" required>
-                <p class="campo__error" id="error-regInputApellido" hidden>
-                </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="run"
+                  >RUN</label
+                >
+                <input
+                  class="campo__control"
+                  type="text"
+                  id="run"
+                  name="run"
+                  maxlength="12"
+                  autocomplete="off"
+                />
+                <p class="campo__ayuda" id="ayuda-run">
+                  Escríbelo como quieras: al salir del campo se guarda sin
+                  puntos ni guion, como 19011022K.
+                </p>
+                <p class="campo__error" id="error-run" role="alert" hidden></p>
+              </div>
+              <div class="campo">
+                <label class="campo__etiqueta" for="fechaNacimiento"
+                  >Fecha de nacimiento</label
+                >
+                <input
+                  class="campo__control"
+                  type="date"
+                  id="fechaNacimiento"
+                  name="fechaNacimiento"
+                />
+                <p class="campo__ayuda" id="ayuda-fechaNacimiento">
+                  Opcional. Si tienes más de 50 años, accedes a un 50% de
+                  descuento.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-fechaNacimiento"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="nombre"
+                  >Nombre</label
+                >
+                <input
+                  class="campo__control"
+                  type="text"
+                  id="nombre"
+                  name="nombre"
+                  maxlength="50"
+                  autocomplete="given-name"
+                />
+                <p class="campo__ayuda" id="ayuda-nombre">
+                  Máximo 50 caracteres.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-nombre"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="apellidos"
+                  >Apellidos</label
+                >
+                <input
+                  class="campo__control"
+                  type="text"
+                  id="apellidos"
+                  name="apellidos"
+                  maxlength="100"
+                  autocomplete="family-name"
+                />
+                <p class="campo__ayuda" id="ayuda-apellidos">
+                  Máximo 100 caracteres.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-apellidos"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="correo"
+                  >Correo</label
+                >
+                <input
+                  class="campo__control"
+                  type="email"
+                  id="correo"
+                  name="correo"
+                  maxlength="100"
+                  autocomplete="email"
+                />
+                <p class="campo__ayuda" id="ayuda-correo">
+                  Si te registras con tu correo Duoc UC, tu torta de cumpleaños
+                  va por nuestra cuenta.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-correo"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label class="campo__etiqueta" for="telefono">Teléfono</label>
+                <input
+                  class="campo__control"
+                  type="tel"
+                  id="telefono"
+                  name="telefono"
+                  autocomplete="tel"
+                />
+                <p class="campo__ayuda" id="ayuda-telefono">
+                  Opcional. Por ejemplo: +56912345678.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-telefono"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="region"
+                  >Región</label
+                >
+                <select class="campo__control" id="region" name="region">
+                  <option value="">Elige una región</option>
+                </select>
+                <p
+                  class="campo__error"
+                  id="error-region"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="comuna"
+                  >Comuna</label
+                >
+                <select
+                  class="campo__control"
+                  id="comuna"
+                  name="comuna"
+                  disabled
+                >
+                  <option value="">Primero elige una región</option>
+                </select>
+                <p class="campo__ayuda" id="ayuda-comuna">
+                  La lista cambia según la región elegida.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-comuna"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo campo--completo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="direccion"
+                  >Dirección</label
+                >
+                <input
+                  class="campo__control"
+                  type="text"
+                  id="direccion"
+                  name="direccion"
+                  maxlength="300"
+                  autocomplete="street-address"
+                />
+                <p class="campo__ayuda" id="ayuda-direccion">
+                  Calle, número y departamento o casa. Máximo 300 caracteres.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-direccion"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="clave"
+                  >Contraseña</label
+                >
+                <input
+                  class="campo__control"
+                  type="password"
+                  id="clave"
+                  name="clave"
+                  maxlength="10"
+                  autocomplete="new-password"
+                />
+                <p class="campo__ayuda" id="ayuda-clave">
+                  Entre 4 y 10 caracteres.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-clave"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
+              <div class="campo">
+                <label
+                  class="campo__etiqueta campo__etiqueta--obligatorio"
+                  for="claveRepetida"
+                  >Repite la contraseña</label
+                >
+                <input
+                  class="campo__control"
+                  type="password"
+                  id="claveRepetida"
+                  name="claveRepetida"
+                  maxlength="10"
+                  autocomplete="new-password"
+                />
+                <p class="campo__ayuda" id="ayuda-claveRepetida">
+                  Debe coincidir con la anterior.
+                </p>
+                <p
+                  class="campo__error"
+                  id="error-claveRepetida"
+                  role="alert"
+                  hidden
+                ></p>
+              </div>
             </div>
 
-            <!-- Correo -->
-            <div class="campo">
-                <label for="regInputEmail" class="campo__etiqueta--obligatorio">Correo</label>
-                <input type="email" class="campo__control" id="regInputEmail" aria-describedby="emailHelp" required>
-                <p class="campo__error" id="error-regInputEmail" hidden>
-            </div>
-            
-            <!-- Telefono -->
-            <div class="campo">
-                <label for="regInputTel" class="campo__etiqueta--obligatorio">Telefono</label>
-                <input type="tel" class="campo__control" id="regInputTel" aria-describedby="telHelp" required>
-                <p class="campo__error" id="error-regInputTel" hidden>
-            </div>
-
-            <!-- Contraseña y Confirmar  -->
-            <div class="formulario__grilla">
-                <div class="campo">
-                    <label for="regInputPassword" class="campo__etiqueta--obligatorio">Contraseña</label>
-                    <input type="password" class="campo__control" id="regInputPassword" required>
-                    <p class="campo__error" id="error-regInputPassword" hidden>
-                </div>
-    
-                <div class="campo">
-                    <label for="regInputRPassword" class="campo__etiqueta--obligatorio">Confirmar Contraseña</label>
-                    <input type="password" class="campo__control" id="regInputCPassword" required>
-                    <p class="campo__error" id="error-regInputCPassword" hidden>
-                </div>
-            </div>
-
-            <!-- Checkbox Recordar contraseña -->
-            <div class="campo campo--casilla">
-                <input type="checkbox" class="campo__control" id="rememberPasswordCheck">
-                <label class="campo__etiqueta mb-0" for="rememberPasswordCheck">Recordar Contraseña</label>
-            </div>
-
-            <!-- Botón Submit -->
             <div class="formulario__acciones">
-                <button type="submit" class="boton boton--bloque">Registrar Usuario</button>
+              <button class="boton boton--bloque" type="submit">
+                Crear mi cuenta
+              </button>
             </div>
 
+            <p class="formulario__pie">
+              ¿Ya tienes una cuenta?
+              <a href="login.html">Inicia sesión aquí</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
 
-            <!-- Pie de reg y register-->
-            <div class="formulario__pie">
-                <p class="form-text">¿Ya tienes una cuenta?</p><a href="login.html">Inicia Sesión aquí</a>
-            </div>
-        </form>
-    </body>
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+      <div class="contenedor pie__interior">
+        <div>
+          <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+          <p>
+            Tortas, postres y pastelería tradicional chilena desde 1975.
+            Endulzando los momentos importantes de nuestros clientes.
+          </p>
+        </div>
 
+        <div>
+          <h3 class="pie__titulo">Navegación</h3>
+          <ul class="pie__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="productos.html">Productos</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="pie__titulo">Contacto</h3>
+          <ul class="pie__lista">
+            <li>Av. Providencia 1234, Santiago</li>
+            <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+            <li>
+              <a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a>
+            </li>
+            <li>Lunes a sábado, 9:00 a 20:00</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="pie__legal">
+        © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+      </p>
+    </footer>
+
+    <script src="js/datos/regiones.js"></script>
+    <script src="js/comunes.js"></script>
     <script src="js/validaciones.js"></script>
     <script src="js/registro.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>
