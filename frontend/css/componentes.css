@@ -1396,3 +1396,64 @@
   padding-top: var(--espacio-md);
   border-top: 1px solid var(--color-borde);
 }
+
+/* ---------------------------------------------------------------------
+   16. EQUIPO DE DESARROLLO
+   --------------------------------------------------------------------- */
+
+/* Las fichas del equipo ya se apoyan en .sello y en .persona__inicial, que
+   existen desde la sección 5 y la 14. Acá solo se agrega lo propio de esta
+   parte: la lista de aportes y la línea con el usuario del repositorio.
+   La ficha pasa a ser una columna flexible para que esa última línea quede
+   pegada abajo aunque una persona tenga más aportes que otra. */
+.persona {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Al volver la ficha una columna flexible, la inicial deja de responder al
+   text-align: center de .sello y hay que centrarla como item del flex. */
+.persona__inicial {
+  align-self: center;
+}
+
+/* La lista va alineada a la izquierda aunque el resto de la ficha esté
+   centrado: una lista de viñetas centrada se lee mal. */
+/* Se nombra "ul.persona__aportes" y no solo la clase porque base.css apaga
+   las vinetas con "ul[class]", que pesa mas que una clase sola. */
+ul.persona__aportes {
+  margin: var(--espacio-sm) 0 0;
+  padding-left: 1.15rem;
+  list-style: disc;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--color-texto-suave);
+}
+
+.persona__aportes li + li {
+  margin-top: 0.35rem;
+}
+
+/* margin-top: auto empuja esta línea al pie de la ficha. */
+.persona__usuario {
+  margin-top: auto;
+  padding-top: var(--espacio-sm);
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+/* El separador se dibuja arriba del texto y no como borde del párrafo,
+   así queda a lo ancho de la ficha con un respiro por encima. */
+.persona__usuario::before {
+  content: "";
+  display: block;
+  margin-bottom: var(--espacio-sm);
+  border-top: 1px solid var(--color-borde);
+}
+
+/* nowrap evita que un usuario con guion, como AO-Alumno, se parta en dos
+   lineas justo en el guion. */
+.persona__usuario strong {
+  color: var(--color-chocolate);
+  white-space: nowrap;
+}

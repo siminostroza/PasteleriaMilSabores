@@ -305,7 +305,9 @@
       <!-- ==========================================================
            EQUIPO DE DESARROLLO
            El enunciado pide que esta vista presente también a quienes
-           desarrollan el sitio.
+           desarrollan el sitio. Lo que aparece en cada ficha es lo que
+           esa persona alcanzó a subir al repositorio, para que coincida
+           con el historial de commits.
            ========================================================== -->
       <section class="seccion" aria-labelledby="titulo-equipo">
         <div class="contenedor">
@@ -313,44 +315,78 @@
             <h2 id="titulo-equipo">Quiénes hicimos esta tienda</h2>
             <p>
               Estudiantes de Desarrollo Fullstack II de Duoc UC. Este sitio es
-              nuestro proyecto de la asignatura DSY1104.
+              nuestro proyecto de la asignatura DSY1104, y el trabajo de cada
+              integrante queda registrado en el historial del repositorio.
             </p>
           </div>
 
           <div class="grilla-sellos">
-            <article class="sello">
+            <article class="sello persona">
+              <p class="persona__inicial" aria-hidden="true">C</p>
+              <h3 class="sello__titulo">
+                Catalina Lobos
+                <span class="persona__rol">Carrito y administración</span>
+              </h3>
+              <p class="sello__texto">
+                Programó la compra y la trastienda: el carrito, el motor que
+                valida todos los formularios y las vistas con las que se
+                administran productos y usuarios.
+              </p>
+              <ul class="persona__aportes">
+                <li>Carrito de compras, con cantidades, topes y totales</li>
+                <li>Motor de validaciones reutilizable por todo el sitio</li>
+                <li>Las cinco vistas del panel administrativo</li>
+                <li>Esta misma página, Nosotros</li>
+              </ul>
+              <p class="persona__usuario">
+                Commits firmados como <strong>Shany-Ghost</strong>
+              </p>
+            </article>
+
+            <article class="sello persona">
+              <p class="persona__inicial" aria-hidden="true">G</p>
+              <h3 class="sello__titulo">
+                Gabriel Sandoval
+                <span class="persona__rol">Estilos y catálogo</span>
+              </h3>
+              <p class="sello__texto">
+                Armó la base sobre la que se apoya el resto: la organización
+                de carpetas, las hojas de estilo compartidas y las páginas
+                donde se ven y se eligen los productos.
+              </p>
+              <ul class="persona__aportes">
+                <li>Estructura del frontend y las hojas de estilo base</li>
+                <li>Catálogo de productos y optimización de las imágenes</li>
+                <li>Ficha de detalle de cada producto</li>
+                <li>Sección de blogs, con su portada y sus entradas</li>
+                <li>Script de la base de datos en Oracle</li>
+              </ul>
+              <p class="persona__usuario">
+                Commits firmados como <strong>Sandy-Yera</strong>
+              </p>
+            </article>
+
+            <article class="sello persona">
               <p class="persona__inicial" aria-hidden="true">S</p>
               <h3 class="sello__titulo">
-                Nombre por completar
-                <span class="persona__rol">Rol por definir</span>
+                Simón Inostroza
+                <span class="persona__rol">Cuentas e integración</span>
               </h3>
               <p class="sello__texto">
-                Detalles por rellenar: qué hizo cada integrante del equipo, qué
-                tecnologías usó y qué aprendió en el proceso de desarrollo.
+                Partió el repositorio y lo mantuvo ordenado: revisó y unió las
+                ramas de cada integrante, y dejó funcionando el ingreso, el
+                registro y el formulario de contacto.
               </p>
-            </article>
-
-            <article class="sello">
-              <p class="persona__inicial" aria-hidden="true">?</p>
-              <h3 class="sello__titulo">
-                Nombre por completar
-                <span class="persona__rol">Rol por definir</span>
-              </h3>
-              <p class="sello__texto">
-                Detalles por rellenar: qué hizo cada integrante del equipo, qué
-                tecnologías usó y qué aprendió en el proceso de desarrollo.
-              </p>
-            </article>
-
-            <article class="sello">
-              <p class="persona__inicial" aria-hidden="true">?</p>
-              <h3 class="sello__titulo">
-                Nombre por completar
-                <span class="persona__rol">Rol por definir</span>
-              </h3>
-              <p class="sello__texto">
-                Detalles por rellenar: qué hizo cada integrante del equipo, qué
-                tecnologías usó y qué aprendió en el proceso de desarrollo.
+              <ul class="persona__aportes">
+                <li>Puesta en marcha del repositorio y la documentación</li>
+                <li>Primeros bocetos de inicio de sesión, carrito y cabecera</li>
+                <li>Ingreso y registro conectados al motor de validaciones</li>
+                <li>Vista de contacto</li>
+                <li>Revisión y unión de las ramas del equipo</li>
+              </ul>
+              <p class="persona__usuario">
+                Commits firmados como <strong>siminostroza</strong> y
+                <strong>AO-Alumno</strong>
               </p>
             </article>
           </div>
