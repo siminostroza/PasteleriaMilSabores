@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="No es lo mismo que el dulce de leche ni que la cajeta. La diferencia está en el tiempo de cocción y en la leche con que se empieza." />
+    <title>Por qué el manjar chileno sabe distinto — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+        <div class="contenedor cabecera__interior">
+
+            <a class="marca" href="index.html">
+                <img class="marca__logo" src="img/logo/logo-mil-sabores.png"
+                     alt="Logotipo de Pastelería 1000 Sabores" width="46" height="46"
+                     data-reemplazo="ocultar">
+                <span class="marca__nombre">
+                    1000 Sabores
+                    <span class="marca__bajada">Pastelería desde 1975</span>
+                </span>
+            </a>
+
+            <button class="menu-boton" id="menu-boton" type="button"
+                    aria-expanded="false" aria-controls="navegacion-principal">
+                <span aria-hidden="true">☰</span>
+                <span class="solo-lectores">Abrir menú de navegación</span>
+            </button>
+
+            <nav class="navegacion" id="navegacion-principal" aria-label="Navegación principal">
+                <ul class="navegacion__lista">
+                    <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+                    <li><a class="navegacion__enlace" href="productos.html">Productos</a></li>
+                    <li><a class="navegacion__enlace" href="nosotros.html">Nosotros</a></li>
+                    <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+                    <li><a class="navegacion__enlace" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="cabecera__acciones">
+                <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+                <a class="carrito-enlace" href="carrito.html">
+                    <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+                    <span class="carrito-contador carrito-contador--vacio"
+                          id="carrito-contador" aria-hidden="true">0</span>
+                    <span class="solo-lectores" id="carrito-etiqueta">Carrito: 0 productos</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main id="contenido">
+      <nav class="migas" aria-label="Ruta de navegación">
+        <div class="contenedor">
+          <ol class="migas__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li class="migas__actual" aria-current="page">Por qué el manjar chileno sabe distinto</li>
+          </ol>
+        </div>
+      </nav>
+
+      <section class="seccion">
+        <div class="contenedor">
+          <article class="entrada">
+            <p class="entrada__meta">Recetas · 2 de julio de 2026 · 5 min de lectura</p>
+            <h1 class="entrada__titulo">
+              Por qué el manjar chileno sabe distinto
+            </h1>
+            <p class="entrada__bajada">
+              No es lo mismo que el dulce de leche ni que la cajeta. La
+              diferencia está en el tiempo de cocción y en algo que casi nadie
+              menciona: la leche con que se empieza.
+            </p>
+
+            <figure class="entrada__figura">
+              <img
+                class="entrada__imagen"
+                src="img/blog/manjar.jpg"
+                alt="Olla de cobre con manjar en cocción y una cuchara de madera"
+                width="800"
+                height="450"
+                data-reemplazo
+              />
+              <figcaption class="entrada__pie-figura">
+                El punto del manjar se reconoce por la marca que deja la cuchara.
+              </figcaption>
+            </figure>
+
+            <div class="entrada__cuerpo">
+              <p>
+                Es la pregunta que más nos hacen los estudiantes que llegan al
+                taller: si el dulce de leche, la cajeta y el manjar son leche con
+                azúcar cocida, ¿por qué no saben igual? La respuesta corta es que
+                no son la misma preparación. La larga vale la pena.
+              </p>
+
+              <h2>Tres caminos distintos</h2>
+              <p>
+                La cajeta mexicana parte de leche de cabra, y eso solo ya cambia
+                todo: el sabor es más ácido y el color más claro. El dulce de
+                leche argentino se cuece menos tiempo y queda más fluido, pensado
+                para untar. El manjar chileno se cuece más, hasta que espesa lo
+                suficiente para sostenerse dentro de una torta sin escurrirse.
+              </p>
+              <p>
+                Esa diferencia de cocción no es un detalle. Mientras más tiempo
+                pasa la leche al fuego, más avanza la reacción entre sus azúcares
+                y sus proteínas, que es la que aporta el color oscuro y ese gusto
+                a tostado que uno reconoce de inmediato.
+              </p>
+
+              <h2>Lo que casi nadie menciona</h2>
+              <p>
+                La leche con que se empieza importa tanto como el tiempo. Una
+                leche con más grasa da un manjar más sedoso y menos arenoso, y
+                soporta mejor la cocción larga sin cortarse. Cuando cambiamos de
+                proveedor hace unos años, la primera tanda salió distinta sin que
+                hubiéramos tocado la receta.
+              </p>
+
+              <blockquote class="entrada__cita">
+                <p>
+                  El manjar no se mide con reloj, se mide con la cuchara. Cuando
+                  la marca que deja tarda en cerrarse, está listo.
+                </p>
+                <footer>Lo que nos enseñaron en el taller, y seguimos repitiendo</footer>
+              </blockquote>
+
+              <h2>Para probarlo en casa</h2>
+              <p>
+                Si van a intentarlo, dos consejos que nos ahorrarían varios
+                fracasos. El primero: fuego bajo desde el principio, porque el
+                azúcar que se quema al fondo no se arregla después. El segundo:
+                revolver siempre en la misma dirección y llegando a las esquinas
+                de la olla, que es donde empieza a pegarse.
+              </p>
+              <p>
+                Y si prefieren saltarse las tres horas de revolver, la Torta
+                Circular de Manjar del catálogo lleva exactamente este manjar.
+              </p>
+            </div>
+
+            <nav class="entrada__navegacion" aria-label="Más entradas">
+              <a class="boton boton--borde" href="blog-01.html">
+                ← Anterior: la torta más grande del mundo
+              </a>
+              <a class="boton boton--borde" href="blogs.html">Todas las entradas →</a>
+            </nav>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+        <div class="contenedor pie__interior">
+
+            <div>
+                <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+                <p>
+                    Tortas, postres y pastelería tradicional chilena desde 1975.
+                    Endulzando los momentos importantes de nuestros clientes.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Navegación</h3>
+                <ul class="pie__lista">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Contacto</h3>
+                <ul class="pie__lista">
+                    <li>Av. Providencia 1234, Santiago</li>
+                    <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+                    <li><a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a></li>
+                    <li>Lunes a sábado, 9:00 a 20:00</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <p class="pie__legal">
+            © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+        </p>
+    </footer>
+
+    <script src="js/comunes.js"></script>
+  </body>
+</html>

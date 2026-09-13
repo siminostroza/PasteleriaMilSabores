@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="En 1995 un grupo de pastelerías chilenas batió un récord Guinness. Esto es lo que recordamos de esa semana." />
+    <title>La torta más grande del mundo — Pastelería 1000 Sabores</title>
+
+    <link rel="icon" href="img/logo/favicon.png" type="image/png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/componentes.css" />
+  </head>
+
+  <body>
+    <!-- Atajo para quien navega con teclado: salta el menú y va al contenido -->
+    <a class="solo-lectores" href="#contenido">Saltar al contenido principal</a>
+
+    <!-- ==========================================================
+         CABECERA: logo, menú de navegación y carrito de compra
+         ========================================================== -->
+    <header class="cabecera">
+        <div class="contenedor cabecera__interior">
+
+            <a class="marca" href="index.html">
+                <img class="marca__logo" src="img/logo/logo-mil-sabores.png"
+                     alt="Logotipo de Pastelería 1000 Sabores" width="46" height="46"
+                     data-reemplazo="ocultar">
+                <span class="marca__nombre">
+                    1000 Sabores
+                    <span class="marca__bajada">Pastelería desde 1975</span>
+                </span>
+            </a>
+
+            <button class="menu-boton" id="menu-boton" type="button"
+                    aria-expanded="false" aria-controls="navegacion-principal">
+                <span aria-hidden="true">☰</span>
+                <span class="solo-lectores">Abrir menú de navegación</span>
+            </button>
+
+            <nav class="navegacion" id="navegacion-principal" aria-label="Navegación principal">
+                <ul class="navegacion__lista">
+                    <li><a class="navegacion__enlace" href="index.html">Inicio</a></li>
+                    <li><a class="navegacion__enlace" href="productos.html">Productos</a></li>
+                    <li><a class="navegacion__enlace" href="nosotros.html">Nosotros</a></li>
+                    <li><a class="navegacion__enlace" href="blogs.html">Blogs</a></li>
+                    <li><a class="navegacion__enlace" href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div class="cabecera__acciones">
+                <a class="boton boton--borde" href="login.html">Iniciar sesión</a>
+
+                <a class="carrito-enlace" href="carrito.html">
+                    <span class="carrito-enlace__icono" aria-hidden="true">🛒</span>
+                    <span class="carrito-contador carrito-contador--vacio"
+                          id="carrito-contador" aria-hidden="true">0</span>
+                    <span class="solo-lectores" id="carrito-etiqueta">Carrito: 0 productos</span>
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <main id="contenido">
+      <nav class="migas" aria-label="Ruta de navegación">
+        <div class="contenedor">
+          <ol class="migas__lista">
+            <li><a href="index.html">Inicio</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li><a href="blogs.html">Blogs</a></li>
+            <li class="migas__separador" aria-hidden="true">›</li>
+            <li class="migas__actual" aria-current="page">La torta más grande del mundo</li>
+          </ol>
+        </div>
+      </nav>
+
+      <section class="seccion">
+        <div class="contenedor">
+          <article class="entrada">
+            <p class="entrada__meta">Historia · 14 de agosto de 2026 · 4 min de lectura</p>
+            <h1 class="entrada__titulo">
+              La torta más grande del mundo: cómo fue estar ahí
+            </h1>
+            <p class="entrada__bajada">
+              En 1995 un grupo de pastelerías chilenas batió un récord Guinness.
+              Nosotros pusimos el relleno de manjar. Esto es lo que recordamos
+              de esa semana.
+            </p>
+
+            <figure class="entrada__figura">
+              <img
+                class="entrada__imagen"
+                src="img/blog/record-guinness.jpg"
+                alt="Pasteleros trabajando sobre una torta de gran tamaño"
+                width="800"
+                height="450"
+                data-reemplazo
+              />
+              <figcaption class="entrada__pie-figura">
+                Montaje de la torta, tercera jornada de trabajo.
+              </figcaption>
+            </figure>
+
+            <div class="entrada__cuerpo">
+              <p>
+                La primera pregunta que nos hicieron cuando llegó la invitación
+                fue la más simple: ¿cuánto manjar se necesita para una torta de
+                ese tamaño? Nadie en el taller tenía una respuesta. Nunca
+                habíamos preparado más de treinta kilos de una vez, y lo que nos
+                estaban pidiendo era otra escala completa.
+              </p>
+
+              <h2>Ensayar a escala</h2>
+              <p>
+                Las dos semanas previas las pasamos haciendo pruebas. Un manjar
+                que funciona en una olla de veinte litros no se comporta igual en
+                una de doscientos: la cocción es más lenta al centro, el azúcar
+                se quema antes en los bordes y el punto justo, ese en que la
+                cuchara deja una marca que tarda en cerrarse, aparece mucho
+                después de lo que uno espera.
+              </p>
+              <p>
+                Terminamos dividiendo el trabajo en tandas más chicas y
+                juntándolas al final. Menos espectacular que una olla gigante,
+                pero fue lo único que nos dio un manjar parejo.
+              </p>
+
+              <h2>La semana del montaje</h2>
+              <p>
+                El armado tomó cuatro días. Cada pastelería llegaba con su parte
+                y había que coordinar que los bizcochos tuvieran la misma altura,
+                porque una diferencia de dos centímetros en una punta se
+                convierte en un desnivel enorme cuando la superficie es tan
+                grande.
+              </p>
+              <p>
+                Lo que más recordamos no es el récord sino el ruido: decenas de
+                personas trabajando al mismo tiempo, cada una con su técnica,
+                discutiendo si el merengue iba antes o después del relleno. Ahí
+                aprendimos varias cosas que todavía usamos.
+              </p>
+
+              <blockquote class="entrada__cita">
+                <p>
+                  Nunca habíamos visto tantos pasteleros discutiendo sobre lo
+                  mismo al mismo tiempo. La mitad de lo que sabemos hoy salió de
+                  esos cuatro días.
+                </p>
+                <footer>Del cuaderno de taller, marzo de 1995</footer>
+              </blockquote>
+
+              <h2>Qué nos quedó</h2>
+              <p>
+                Treinta años después seguimos preparando el manjar por tandas, no
+                por costumbre sino porque aprendimos ahí que es la forma de que
+                salga igual siempre. La Torta Circular de Manjar que está hoy en
+                el catálogo usa exactamente ese método.
+              </p>
+              <p>
+                Y cada vez que alguien pregunta si de verdad estuvimos en el
+                récord, la respuesta es sí, pero la parte interesante nunca es
+                esa.
+              </p>
+            </div>
+
+            <nav class="entrada__navegacion" aria-label="Más entradas">
+              <a class="boton boton--borde" href="blogs.html">← Todas las entradas</a>
+              <a class="boton boton--borde" href="blog-02.html">
+                Siguiente: el manjar chileno →
+              </a>
+            </nav>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+         PIE DE PÁGINA
+         ========================================================== -->
+    <footer class="pie">
+        <div class="contenedor pie__interior">
+
+            <div>
+                <h2 class="pie__titulo">Pastelería 1000 Sabores</h2>
+                <p>
+                    Tortas, postres y pastelería tradicional chilena desde 1975.
+                    Endulzando los momentos importantes de nuestros clientes.
+                </p>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Navegación</h3>
+                <ul class="pie__lista">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="blogs.html">Blogs</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="pie__titulo">Contacto</h3>
+                <ul class="pie__lista">
+                    <li>Av. Providencia 1234, Santiago</li>
+                    <li><a href="tel:+56221234567">+56 2 2123 4567</a></li>
+                    <li><a href="mailto:contacto@milsabores.cl">contacto@milsabores.cl</a></li>
+                    <li>Lunes a sábado, 9:00 a 20:00</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <p class="pie__legal">
+            © 2026 Pastelería 1000 Sabores · Proyecto académico DSY1104 · Duoc UC
+        </p>
+    </footer>
+
+    <script src="js/comunes.js"></script>
+  </body>
+</html>

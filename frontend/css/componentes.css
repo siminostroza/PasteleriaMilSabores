@@ -1234,3 +1234,165 @@
   text-transform: uppercase;
   color: var(--color-texto-suave);
 }
+
+/* ---------------------------------------------------------------------
+   15. BLOG
+   --------------------------------------------------------------------- */
+
+/* Listado de entradas */
+.grilla-blogs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--espacio-md);
+}
+
+.tarjeta-blog {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+  transition:
+    transform var(--transicion),
+    box-shadow var(--transicion);
+}
+
+.tarjeta-blog:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-media);
+}
+
+.tarjeta-blog__imagen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background-color: var(--color-superficie-tenue);
+}
+
+.tarjeta-blog__cuerpo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 0.4rem;
+  padding: var(--espacio-md);
+}
+
+.tarjeta-blog__meta {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.tarjeta-blog__titulo {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.tarjeta-blog__titulo a {
+  color: inherit;
+}
+
+.tarjeta-blog__autor {
+  margin-top: auto;
+  padding-top: var(--espacio-xs);
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--color-texto-suave);
+}
+
+/* ---- Página de detalle de una entrada ---- */
+
+/* El ancho se limita en caracteres y no en píxeles: una línea de más de
+   75 caracteres cansa la vista, y con ch la medida sigue a la tipografía
+   si algún día cambia de tamaño. */
+.entrada {
+  max-width: 68ch;
+  margin-inline: auto;
+}
+
+.entrada__meta {
+  margin: 0 0 var(--espacio-xs);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.entrada__titulo {
+  margin: 0 0 var(--espacio-sm);
+}
+
+.entrada__bajada {
+  margin: 0 0 var(--espacio-md);
+  font-size: 1.15rem;
+  color: var(--color-texto-suave);
+}
+
+.entrada__figura {
+  margin: 0 0 var(--espacio-md);
+}
+
+.entrada__imagen {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: var(--radio-md);
+  box-shadow: var(--sombra-suave);
+  background-color: var(--color-superficie-tenue);
+}
+
+.entrada__pie-figura {
+  margin-top: var(--espacio-xs);
+  font-size: 0.82rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+}
+
+.entrada__cuerpo h2 {
+  margin-top: var(--espacio-lg);
+  font-size: 1.5rem;
+}
+
+.entrada__cuerpo p {
+  margin-top: var(--espacio-sm);
+}
+
+/* Cita destacada dentro del artículo */
+.entrada__cita {
+  margin: var(--espacio-lg) 0;
+  padding: var(--espacio-md) var(--espacio-md) var(--espacio-md)
+    var(--espacio-lg);
+  border-left: 5px solid var(--color-rosa);
+  background-color: var(--color-superficie-tenue);
+  border-radius: 0 var(--radio-md) var(--radio-md) 0;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.entrada__cita p {
+  margin: 0;
+}
+
+.entrada__cita footer {
+  margin-top: var(--espacio-xs);
+  font-size: 0.85rem;
+  font-style: normal;
+  color: var(--color-texto-suave);
+}
+
+/* Navegación entre entradas, al pie del artículo */
+.entrada__navegacion {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-xs);
+  justify-content: space-between;
+  margin-top: var(--espacio-lg);
+  padding-top: var(--espacio-md);
+  border-top: 1px solid var(--color-borde);
+}
