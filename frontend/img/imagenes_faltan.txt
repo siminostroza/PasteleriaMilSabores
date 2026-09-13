@@ -1,3 +1,5 @@
 img/logo/logo-mil-sabores.png       46×46 o mayor, fondo transparente
 img/logo/favicon.png                32×32
 img/banner/vitrina-pasteleria.jpg   proporción 4:3, ~800×600
+blog/manjar.jpg 800x600
+blog/record-guinnes.jpg 800x600
